@@ -67,7 +67,7 @@ Done
 
 ## Alternatives
 
-You would like to spend ours trying to compose a site generation solution yourself? Try out [metalsmith](http://metalsmith.io/). You would rather like to use Ruby anyway? Try [jekyll](http://jekyllrb.com/). You want to experiment? Role your own.
+You would like to spend hours composing a site generation solution yourself? Try out [metalsmith](http://metalsmith.io/). You would rather like to use Ruby anyway? Try [jekyll](http://jekyllrb.com/). You want to experiment? Role your own.
 
 
 ## License
