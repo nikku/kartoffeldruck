@@ -166,7 +166,7 @@ describe('blg', function() {
     expectGenerated('_date/index.html', [
       '<span>date 2010</span>',
       '<span>string 10/10/2010</span>',
-      '<span>num October 10th 2010, 2:00:00 am</span>'
+      '<span>num October 10th 2010</span>'
     ]);
 
   });
