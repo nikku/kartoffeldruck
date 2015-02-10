@@ -21,7 +21,7 @@ An intentionally non-pluggable, all-in-one, opinionated static site generator. B
 * Generate table of contents
 * Custom urls (slugify, ...)
 
-We intentionally _do not_ provide any image or css processing pipelines. Use [other](https://github.com/gruntjs/grunt-contrib-less) [tools](https://github.com/dlmanning/gulp-sass) for the job.
+We intentionally _do not_ provide any css processing pipelines or asset copy utilities. Use [other](https://github.com/gruntjs/grunt-contrib-less) [tools](https://github.com/dlmanning/gulp-sass) [that](https://github.com/gruntjs/grunt-contrib-copy) do the job.
 
 
 ## Resources
