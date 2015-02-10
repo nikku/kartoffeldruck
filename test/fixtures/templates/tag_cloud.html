@@ -1,0 +1,5 @@
+<div class="tag-cloud">
+  {% for tag, tagDetails in tags %}
+    <span class="tag" data-length="{{ tagDetails.items.length }}">{{ tag }}</span>
+  {% endfor %}
+</div>

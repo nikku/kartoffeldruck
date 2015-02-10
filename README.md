@@ -1,0 +1,74 @@
+# kartoffeldruck
+
+[![Build Status](https://travis-ci.org/nikku/kartoffeldruck.svg?branch=master)](https://travis-ci.org/nikku/kartoffeldruck)
+
+An intentionally non-pluggable, all-in-one, opinionated static site generator. Built with the zen of [kartoffeldruck](https://de.wikipedia.org/wiki/Kartoffeldruck).
+
+![kartoffeldruck image](https://c1.staticflickr.com/9/8087/8373666593_b3dd99259c_z.jpg)
+
+[Image CC BY-SA 2.0, Walter Stempelo](https://www.flickr.com/photos/stempelo/8373666593)
+
+
+## Features
+
+[kartoffeldruck](https://github.com/nikku/kartoffeldruck) is a full fledged site generation solution. An incomplete list of features:
+
+* [Markdown](https://github.com/chjj/marked) and [Nunjucks](https://mozilla.github.io/nunjucks/) templating support
+* Front matters
+* Pagination
+* Draft posts
+* Fetch tags and generate tag clouds
+* Generate table of contents
+* Custom urls (slugify, ...)
+* No asset compilation / copying (combine with other tools that can do the job)
+
+
+## Usage
+
+Get the dependency via [npm](https://npmjs.org):
+
+```
+npm install kartoffeldruck
+```
+
+Place a `kartoffeldruck.js` file in your current project directory:
+
+```javascript
+module.exports = function(druck) {
+
+  // initialize the kartoffeldruck instance
+  // you may specify (global) template locals
+  // as well as the place for templates, pages, assets and dest more
+  druck.init({
+    locals: {
+      site: {
+        title: 'My Site'
+      }
+    }
+  });
+
+
+  druck.generate({
+    source: '*.md',
+    dest: ':name/index.html'
+  });
+};
+```
+
+Run `kartoffeldruck` in the current directory. It will pick up your runner file and generate the site into the `dist` directory (or whatever is specified as `dest` via `druck.init(options)`.
+
+```
+> kartoffeldruck
+Generating site in /some-dir
+Done
+```
+
+
+## Alternatives
+
+You would like to spend ours trying to compose a site generation solution yourself? Try out [metalsmith](http://metalsmith.io/). You would rather like to use Ruby anyway? Try [jekyll](http://jekyllrb.com/). You want to experiment? Role your own.
+
+
+## License
+
+MIT
