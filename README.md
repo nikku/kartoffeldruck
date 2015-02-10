@@ -24,6 +24,12 @@ An intentionally non-pluggable, all-in-one, opinionated static site generator. B
 We intentionally _do not_ provide any image or css processing pipelines. Use [other](https://github.com/gruntjs/grunt-contrib-less) [tools](https://github.com/dlmanning/gulp-sass) for the job.
 
 
+## Resources
+
+* [Issues](https://github.com/nikku/kartoffeldruck/issues)
+* [Example Project](https://github.com/nikku/kartoffeldruck/tree/master/test/fixtures)
+
+
 ## Usage
 
 Get the dependency via [npm](https://npmjs.org):
@@ -63,6 +69,8 @@ Run `kartoffeldruck` in the current directory. It will pick up your runner file 
 Generating site in /some-dir
 Done
 ```
+
+Check out the [example project](https://github.com/nikku/kartoffeldruck/tree/master/test/fixtures) to learn more.
 
 
 ## Alternatives
