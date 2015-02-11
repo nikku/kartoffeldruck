@@ -7,7 +7,7 @@ var Kartoffeldruck = require('../../');
 
 function expectGenerated(file, contents) {
 
-  var realPath = 'test/fixtures/dist/' + file;
+  var realPath = 'example/dist/' + file;
 
   expect(fs.existsSync(realPath)).to.be.true;
 
@@ -24,7 +24,7 @@ describe('generator', function() {
   var blg;
 
   beforeEach(function() {
-    blg = new Kartoffeldruck({ cwd: 'test/fixtures' });
+    blg = new Kartoffeldruck({ cwd: 'example' });
   });
 
 
@@ -157,17 +157,31 @@ describe('generator', function() {
 
 describe('blg', function() {
 
-  it('should run in directory, including custom date helper', function() {
+  describe('should run in directory', function() {
 
-    // when
-    Kartoffeldruck.run('test/fixtures');
+    before(function() {
+      Kartoffeldruck.run('example');
+    });
 
-    // then
-    expectGenerated('_date/index.html', [
-      '<span>date 2010</span>',
-      '<span>string 10/10/2010</span>',
-      '<span>num October 10th 2010</span>'
-    ]);
+    it('including custom date helper', function() {
+
+      expectGenerated('_helpers/index.html', [
+        '<span>date 2010</span>',
+        '<span>string 10/10/2010</span>',
+        '<span>num October 10th 2010</span>'
+      ]);
+
+    });
+
+
+    it('including custom author helper', function() {
+
+      // then
+      expectGenerated('_helpers/index.html', [
+        '<span>author <span class="author">Nico</span></span>',
+        '<span>author linked <a class="author" href="https://github.com/nikku">Nico</a></span>'
+      ]);
+    });
 
   });
 

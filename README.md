@@ -27,7 +27,7 @@ We intentionally _do not_ provide any css processing pipelines or asset copy uti
 ## Resources
 
 * [Issues](https://github.com/nikku/kartoffeldruck/issues)
-* [Example Project](https://github.com/nikku/kartoffeldruck/tree/master/test/fixtures)
+* [Example Project](https://github.com/nikku/kartoffeldruck/tree/master/example)
 
 
 ## Usage
@@ -70,7 +70,7 @@ Generating site in /some-dir
 Done
 ```
 
-Check out the [example project](https://github.com/nikku/kartoffeldruck/tree/master/test/fixtures) to learn more.
+Check out the [example project](https://github.com/nikku/kartoffeldruck/tree/master/example) to learn more.
 
 
 ## Alternatives

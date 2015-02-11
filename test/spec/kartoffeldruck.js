@@ -11,7 +11,7 @@ describe('blg', function() {
 
   beforeEach(function() {
     generator = new GeneratorMock();
-    blg = new Kartoffeldruck({ cwd: path.resolve('test/fixtures'), generator: generator });
+    blg = new Kartoffeldruck({ cwd: path.resolve('example'), generator: generator });
   });
 
 
