@@ -20,8 +20,9 @@ An intentionally non-pluggable, all-in-one, opinionated static site generator. B
 * Fetch tags and generate tag clouds
 * Generate table of contents
 * Custom urls (slugify, ...)
+* Custom helpers
 
-We intentionally _do not_ provide any css processing pipelines or asset copy utilities. Use [other](https://github.com/gruntjs/grunt-contrib-less) [tools](https://github.com/dlmanning/gulp-sass) [that](https://github.com/gruntjs/grunt-contrib-copy) do the job.
+We intentionally _do not_ provide any css processing pipelines or asset copy utilities. Use other tools [that](https://github.com/gruntjs/grunt-contrib-less) [do](https://github.com/dlmanning/gulp-sass) the [job](https://github.com/gruntjs/grunt-contrib-copy).
 
 
 ## Resources
