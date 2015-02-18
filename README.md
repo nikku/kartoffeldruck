@@ -79,6 +79,22 @@ Check out the [example project](https://github.com/nikku/kartoffeldruck/tree/mas
 You would like to spend hours composing a site generation solution yourself? Try out [metalsmith](http://metalsmith.io/). You would rather like to use Ruby anyway? Try [jekyll](http://jekyllrb.com/). You want to experiment? Role your own.
 
 
+## Grunt Integration
+
+Simply add the following task to your `Gruntfile.js`:
+
+```
+grunt.registerTask('kartoffeldruck', function() {
+  var kartoffeldruck = require('kartoffeldruck');
+  kartoffeldruck.run(null, {
+    log: grunt.log.ok
+  });
+});
+```
+
+It will pick up your local `kartoffeldruck.js` file and generate the blog from there.
+
+
 ## License
 
 MIT
