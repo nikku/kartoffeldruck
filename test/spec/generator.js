@@ -160,7 +160,7 @@ describe('blg', function() {
   describe('should run in directory', function() {
 
     before(function() {
-      Kartoffeldruck.run('example');
+      Kartoffeldruck.run({ cwd: 'example' });
     });
 
     it('including custom date helper', function() {

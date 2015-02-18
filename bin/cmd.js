@@ -15,7 +15,7 @@ if (process.argv.length > 2) {
 }
 
 try {
-  Kartoffeldruck.run(null, console);
+  Kartoffeldruck.run({ logger: console });
 } catch (e) {
   console.error(e);
   process.exit(1);
