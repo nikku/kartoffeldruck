@@ -8,6 +8,10 @@
   "scripts": {
     "test": "mocha -r test/expect -c --recursive test/spec"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nikku/kartoffeldruck"
+  },
   "keywords": [
     "static",
     "site generator",
