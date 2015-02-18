@@ -14,15 +14,11 @@ if (process.argv.length > 2) {
   process.exit(1);
 }
 
-console.log('Generating site in ' + process.cwd());
-
 try {
-  Kartoffeldruck.run();
+  Kartoffeldruck.run(null, console);
 } catch (e) {
-  console.error(e.message);
+  console.error(e);
   process.exit(1);
 }
-
-console.log('Done.');
 
 process.exit(0);
