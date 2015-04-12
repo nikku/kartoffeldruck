@@ -82,6 +82,24 @@ describe('generator', function() {
   });
 
 
+  it('should aggregate / paginate items in single post / empty collection', function() {
+
+    // when
+    blg.generate({
+      source: 'index.html',
+      dest: ':page/index.html',
+      locals: { items: [] },
+      paginate: 1
+    });
+
+    // then
+    expectGenerated('index.html', [
+      '<title>My blog</title>',
+      '<h2>Welcome to my blog</h2>'
+    ]);
+  });
+
+
   it('should aggregate tagged', function() {
 
     // given
