@@ -21,21 +21,21 @@ function expectGenerated(file, contents) {
 
 describe('generator', function() {
 
-  var blg;
+  var druck;
 
   beforeEach(function() {
-    blg = new Kartoffeldruck({ cwd: 'example' });
+    druck = new Kartoffeldruck({ cwd: 'example' });
   });
 
 
   afterEach(function() {
-    blg.clean();
+    druck.clean();
   });
 
   it('should generate multiple posts', function() {
 
     // when
-    blg.generate({
+    druck.generate({
       source: 'posts/*.md',
       dest: ':name/index.html'
     });
@@ -57,10 +57,10 @@ describe('generator', function() {
   it('should aggregate / paginate items in single post', function() {
 
     // given
-    var posts = blg.files('posts/*');
+    var posts = druck.files('posts/*');
 
     // when
-    blg.generate({
+    druck.generate({
       source: 'index.html',
       dest: ':page/index.html',
       locals: { items: posts },
@@ -85,7 +85,7 @@ describe('generator', function() {
   it('should aggregate / paginate items in single post / empty collection', function() {
 
     // when
-    blg.generate({
+    druck.generate({
       source: 'index.html',
       dest: ':page/index.html',
       locals: { items: [] },
@@ -103,7 +103,7 @@ describe('generator', function() {
   it('should aggregate tagged', function() {
 
     // given
-    var posts = blg.files('posts/*');
+    var posts = druck.files('posts/*');
 
     // extract tags
 
@@ -118,7 +118,7 @@ describe('generator', function() {
 
     // when
     forEach(tagged, function(t) {
-      blg.generate({
+      druck.generate({
         source: '_tagged.html',
         dest: '_tagged/:tag/:page/index.html',
         locals: t,
@@ -142,7 +142,7 @@ describe('generator', function() {
   it('should generate tag cloud', function() {
 
     // given
-    var posts = blg.files('posts/*');
+    var posts = druck.files('posts/*');
 
     // extract tags
 
@@ -156,7 +156,7 @@ describe('generator', function() {
     });
 
     // when
-    blg.generate({
+    druck.generate({
       source: '_tags.html',
       dest: '_tagged/index.html',
       locals: { tags: tagged }
@@ -173,34 +173,31 @@ describe('generator', function() {
 });
 
 
-describe('blg', function() {
+describe('generator', function() {
 
-  describe('should run in directory', function() {
-
-    before(function() {
-      Kartoffeldruck.run({ cwd: 'example' });
-    });
-
-    it('including custom date helper', function() {
-
-      expectGenerated('_helpers/index.html', [
-        '<span>date 2010</span>',
-        '<span>string 10/10/2010</span>',
-        '<span>num October 10th 2010</span>'
-      ]);
-
-    });
+  before(function() {
+    Kartoffeldruck.run({ cwd: 'example' });
+  });
 
 
-    it('including custom author helper', function() {
+  it('should use custom date helper', function() {
 
-      // then
-      expectGenerated('_helpers/index.html', [
-        '<span>author <span class="author">Nico</span></span>',
-        '<span>author linked <a class="author" href="https://github.com/nikku">Nico</a></span>'
-      ]);
-    });
+    expectGenerated('_helpers/index.html', [
+      '<span>date 2010</span>',
+      '<span>string 10/10/2010</span>',
+      '<span>num October 10th 2010</span>'
+    ]);
 
+  });
+
+
+  it('should use custom author helper', function() {
+
+    // then
+    expectGenerated('_helpers/index.html', [
+      '<span>author <span class="author">Nico</span></span>',
+      '<span>author linked <a class="author" href="https://github.com/nikku">Nico</a></span>'
+    ]);
   });
 
 });

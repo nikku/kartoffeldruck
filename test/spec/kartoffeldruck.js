@@ -5,13 +5,13 @@ var GeneratorMock = require('../mock/generator');
 var Kartoffeldruck = require('../../');
 
 
-describe('blg', function() {
+describe('kartoffeldruck', function() {
 
-  var blg, generator;
+  var druck, generator;
 
   beforeEach(function() {
     generator = new GeneratorMock();
-    blg = new Kartoffeldruck({ cwd: path.resolve('example'), generator: generator });
+    druck = new Kartoffeldruck({ cwd: path.resolve('example'), generator: generator });
   });
 
 
@@ -21,7 +21,7 @@ describe('blg', function() {
 
       it('should glob existing', function() {
         // when
-        var entries = blg.files('posts/*.md');
+        var entries = druck.files('posts/*.md');
 
         // then
         expect(entries.length).to.eql(2);
@@ -30,7 +30,7 @@ describe('blg', function() {
 
       it('should glob non-existing', function() {
         // when
-        var entries = blg.files('non-existing.html');
+        var entries = druck.files('non-existing.html');
 
         // then
         expect(entries.length).to.eql(0);
@@ -43,7 +43,7 @@ describe('blg', function() {
 
       it('should not fail on non-existing', function() {
         // when
-        var entry = blg.files.get('non-existing.html');
+        var entry = druck.files.get('non-existing.html');
 
         // then
         expect(entry).not.to.exist;
@@ -52,7 +52,7 @@ describe('blg', function() {
 
       it('should parse front matter', function() {
         // when
-        var entry = blg.files.get('posts/01-first.md');
+        var entry = druck.files.get('posts/01-first.md');
 
         // then
         expect(entry.id).to.eql('posts/01-first.md');
@@ -73,7 +73,7 @@ describe('blg', function() {
     it('should generate multiple posts', function() {
 
       // when
-      blg.generate({
+      druck.generate({
         source: 'posts/*.md',
         dest: ':name/index.html'
       });
@@ -114,10 +114,10 @@ describe('blg', function() {
     it('should aggregate items in single post', function() {
 
       // given
-      var posts = blg.files('posts/*');
+      var posts = druck.files('posts/*');
 
       // when
-      blg.generate({
+      druck.generate({
         source: 'index.html',
         dest: ':page/index.html',
         locals: { items: posts },
@@ -196,10 +196,10 @@ describe('blg', function() {
     it('should provide default locals', function() {
 
       // given
-      blg.config.locals = { foo: 'BAR' };
+      druck.config.locals = { foo: 'BAR' };
 
       // when
-      blg.generate({
+      druck.generate({
         source: 'posts/01-first.md',
         dest: 'posts/01-first/index.html'
       });
