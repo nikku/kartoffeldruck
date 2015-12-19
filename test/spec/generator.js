@@ -32,6 +32,7 @@ describe('generator', function() {
     druck.clean();
   });
 
+
   it('should generate multiple posts', function() {
 
     // when

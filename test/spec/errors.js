@@ -25,7 +25,7 @@ describe('kartoffeldruck', function() {
       };
 
       // then
-      expect(init).to.throw(/could not parse kartoffeldruck.js runner in/);
+      expect(init).to.throw(/failed to parse kartoffeldruck.js runner in/);
     });
 
   });
