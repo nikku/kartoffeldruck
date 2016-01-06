@@ -5,19 +5,19 @@ var GeneratorMock = require('../mock/generator');
 var Kartoffeldruck = require('../../');
 
 
-describe('kartoffeldruck', function() {
+describe('kartoffeldruck.js descriptor', function() {
 
-  var druck, generator;
+  describe('druck', function() {
 
-  beforeEach(function() {
-    generator = new GeneratorMock();
-    druck = new Kartoffeldruck({ cwd: path.resolve('example'), generator: generator });
-  });
+    var druck, generator;
+
+    beforeEach(function() {
+      generator = new GeneratorMock();
+      druck = new Kartoffeldruck({ cwd: path.resolve('example'), generator: generator });
+    });
 
 
-  describe('file access', function() {
-
-    describe('all', function() {
+    describe('#files', function() {
 
       it('should glob existing', function() {
         // when
@@ -36,193 +36,193 @@ describe('kartoffeldruck', function() {
         expect(entries.length).to.eql(0);
       });
 
+
+      describe('#get', function() {
+
+        it('should not fail on non-existing', function() {
+          // when
+          var entry = druck.files.get('non-existing.html');
+
+          // then
+          expect(entry).not.to.exist;
+        });
+
+
+        it('should parse front matter', function() {
+          // when
+          var entry = druck.files.get('posts/01-first.md');
+
+          // then
+          expect(entry.id).to.eql('posts/01-first.md');
+          expect(entry.name).to.eql('posts/01-first');
+
+          expect(entry.tags).to.eql([ 'a', 'b', 'c' ]);
+          expect(entry.title).to.eql('first');
+          expect(entry.layout).to.eql('post');
+        });
+
+      });
+
     });
 
 
-    describe('get', function() {
+    describe('#generate', function() {
 
-      it('should not fail on non-existing', function() {
+      it('should generate multiple posts', function() {
+
         // when
-        var entry = druck.files.get('non-existing.html');
+        druck.generate({
+          source: 'posts/*.md',
+          dest: ':name/index.html'
+        });
+
+        var expectedResult =  [
+          {
+            dest: 'posts/01-first/index.html',
+            source: {
+              body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative(\"some-absolute-path\") }}',
+              id: 'posts/01-first.md',
+              layout: 'post',
+              name: 'posts/01-first',
+              tags: [ 'a', 'b', 'c' ],
+              title: 'first'
+            },
+            locals: {}
+          },
+          {
+            dest: 'posts/02-second/index.html',
+            source: {
+              body: '\nOther post.\n\n*YEA*!',
+              draft: true,
+              id: 'posts/02-second.md',
+              layout: 'post',
+              name: 'posts/02-second',
+              tags: [ 'a' ],
+              title: 'second'
+            },
+            locals: {}
+          }
+        ];
 
         // then
-        expect(entry).not.to.exist;
+        expect(generator._generated).to.eql(expectedResult);
       });
 
 
-      it('should parse front matter', function() {
+      it('should aggregate items in single post', function() {
+
+        // given
+        var posts = druck.files('posts/*');
+
         // when
-        var entry = druck.files.get('posts/01-first.md');
+        druck.generate({
+          source: 'index.html',
+          dest: ':page/index.html',
+          locals: { items: posts },
+          paginate: 1
+        });
+
+        var expectedResult = [
+          {
+            dest: 'index.html',
+            locals: {
+              items: [
+                {
+                  body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative(\"some-absolute-path\") }}',
+                  id: 'posts/01-first.md',
+                  layout: 'post',
+                  name: 'posts/01-first',
+                  tags: [ 'a', 'b', 'c' ],
+                  title: 'first'
+                }
+              ],
+              page: {
+                idx: 0,
+                nextRef: '2',
+                previousRef: null,
+                totalPages: 2
+              }
+            },
+            source: {
+              body: '\n\n{% block header %}\n  <h2>Welcome to my blog</h2>\n{% endblock %}',
+              id: 'index.html',
+              layout: 'post_list',
+              name: 'index',
+              title: 'My blog'
+            }
+          },
+          {
+            dest: '2/index.html',
+            locals: {
+              items: [
+                {
+                  body: '\nOther post.\n\n*YEA*!',
+                  draft: true,
+                  id: 'posts/02-second.md',
+                  layout: 'post',
+                  name: 'posts/02-second',
+                  tags: [ 'a' ],
+                  title: 'second'
+                }
+              ],
+              page: {
+                idx: 1,
+                nextRef: null,
+                previousRef: '',
+                totalPages: 2
+              }
+            },
+            source: {
+              body: '\n\n{% block header %}\n  <h2>Welcome to my blog</h2>\n{% endblock %}',
+              id: 'index.html',
+              layout: 'post_list',
+              name: 'index',
+              title: 'My blog'
+            }
+          }
+        ];
 
         // then
-        expect(entry.id).to.eql('posts/01-first.md');
-        expect(entry.name).to.eql('posts/01-first');
-
-        expect(entry.tags).to.eql([ 'a', 'b', 'c' ]);
-        expect(entry.title).to.eql('first');
-        expect(entry.layout).to.eql('post');
+        expect(generator._generated).to.eql(expectedResult);
       });
 
     });
 
-  });
 
+    describe('config.locals', function() {
 
-  describe('file processing', function() {
+      it('should provide default locals', function() {
 
-    it('should generate multiple posts', function() {
+        // given
+        druck.config.locals = { foo: 'BAR' };
 
-      // when
-      druck.generate({
-        source: 'posts/*.md',
-        dest: ':name/index.html'
-      });
+        // when
+        druck.generate({
+          source: 'posts/01-first.md',
+          dest: 'posts/01-first/index.html'
+        });
 
-      var expectedResult =  [
-        {
-          dest: 'posts/01-first/index.html',
-          source: {
-            body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative(\"some-absolute-path\") }}',
-            id: 'posts/01-first.md',
-            layout: 'post',
-            name: 'posts/01-first',
-            tags: [ 'a', 'b', 'c' ],
-            title: 'first'
-          },
-          locals: {}
-        },
-        {
-          dest: 'posts/02-second/index.html',
-          source: {
-            body: '\nOther post.\n\n*YEA*!',
-            draft: true,
-            id: 'posts/02-second.md',
-            layout: 'post',
-            name: 'posts/02-second',
-            tags: [ 'a' ],
-            title: 'second'
-          },
-          locals: {}
-        }
-      ];
-
-      // then
-      expect(generator._generated).to.eql(expectedResult);
-    });
-
-
-    it('should aggregate items in single post', function() {
-
-      // given
-      var posts = druck.files('posts/*');
-
-      // when
-      druck.generate({
-        source: 'index.html',
-        dest: ':page/index.html',
-        locals: { items: posts },
-        paginate: 1
-      });
-
-      var expectedResult = [
-        {
-          dest: 'index.html',
-          locals: {
-            items: [
-              {
-                body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative(\"some-absolute-path\") }}',
-                id: 'posts/01-first.md',
-                layout: 'post',
-                name: 'posts/01-first',
-                tags: [ 'a', 'b', 'c' ],
-                title: 'first'
-              }
-            ],
-            page: {
-              idx: 0,
-              nextRef: '2',
-              previousRef: null,
-              totalPages: 2
+        var expectedResult = [
+          {
+            dest: 'posts/01-first/index.html',
+            locals: {
+              foo: 'BAR'
+            },
+            source: {
+              body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative(\"some-absolute-path\") }}',
+              id: 'posts/01-first.md',
+              layout: 'post',
+              name: 'posts/01-first',
+              tags: [ 'a', 'b', 'c' ],
+              title: 'first'
             }
-          },
-          source: {
-            body: '\n\n{% block header %}\n  <h2>Welcome to my blog</h2>\n{% endblock %}',
-            id: 'index.html',
-            layout: 'post_list',
-            name: 'index',
-            title: 'My blog'
           }
-        },
-        {
-          dest: '2/index.html',
-          locals: {
-            items: [
-              {
-                body: '\nOther post.\n\n*YEA*!',
-                draft: true,
-                id: 'posts/02-second.md',
-                layout: 'post',
-                name: 'posts/02-second',
-                tags: [ 'a' ],
-                title: 'second'
-              }
-            ],
-            page: {
-              idx: 1,
-              nextRef: null,
-              previousRef: '',
-              totalPages: 2
-            }
-          },
-          source: {
-            body: '\n\n{% block header %}\n  <h2>Welcome to my blog</h2>\n{% endblock %}',
-            id: 'index.html',
-            layout: 'post_list',
-            name: 'index',
-            title: 'My blog'
-          }
-        }
-      ];
+        ];
 
-      // then
-      expect(generator._generated).to.eql(expectedResult);
-    });
-
-  });
-
-
-  describe('locals', function() {
-
-    it('should provide default locals', function() {
-
-      // given
-      druck.config.locals = { foo: 'BAR' };
-
-      // when
-      druck.generate({
-        source: 'posts/01-first.md',
-        dest: 'posts/01-first/index.html'
+        // then
+        expect(generator._generated).to.eql(expectedResult);
       });
 
-      var expectedResult = [
-        {
-          dest: 'posts/01-first/index.html',
-          locals: {
-            foo: 'BAR'
-          },
-          source: {
-            body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative(\"some-absolute-path\") }}',
-            id: 'posts/01-first.md',
-            layout: 'post',
-            name: 'posts/01-first',
-            tags: [ 'a', 'b', 'c' ],
-            title: 'first'
-          }
-        }
-      ];
-
-      // then
-      expect(generator._generated).to.eql(expectedResult);
     });
 
   });

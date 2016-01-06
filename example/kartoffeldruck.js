@@ -10,7 +10,7 @@ module.exports = function(druck) {
 
   // install custom helpers
 
-  var nunjucks = druck.config.nunjucks;
+  var nunjucks = druck.getNunjucks();
 
   nunjucks.addFilter('date', require('nunjucks-date'));
 
@@ -43,7 +43,11 @@ module.exports = function(druck) {
   // if you would like to make the tagged variable available
   // across the whole site
 
-  druck.config.locals.tagged = tagged;
+  druck.configure({
+    locals: {
+      tagged: tagged
+    }
+  });
 
 
   // each post on its own page
