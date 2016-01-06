@@ -1,0 +1,7 @@
+<!-- macro definition -->
+{% macro img(src='', caption='', cls='') %}
+<img src="{{ src }}" class="{{ className }}" />
+{% if caption %}
+<span class="caption">{{ caption }}</span>
+{% endif %}
+{% endmacro %}
