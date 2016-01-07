@@ -249,4 +249,146 @@ describe('generator', function() {
 
   });
 
+
+  describe('non-markdown content', function() {
+
+    before(function() {
+      druck = Kartoffeldruck.run({ cwd: 'test/fixtures/non-markdown' });
+
+      expectGenerated = createValidator('test/fixtures/non-markdown');
+    });
+
+    after(function() {
+      druck.clean();
+    });
+
+
+    it('should generate multiple non-markdown posts', function() {
+
+      expectGenerated('posts/01-first/index.html', [
+        '## A markdown headline'
+      ]);
+
+      expectGenerated('posts/02-second/index.html', [
+        'Other post.\n\n*YEA*!'
+      ]);
+
+    });
+
+
+    it('should aggregate / paginate items in single post', function() {
+
+      expectGenerated('index.html', [
+        '## A markdown headline',
+        'Other post.\n\n*YEA*!'
+      ]);
+
+    });
+
+  });
+
+
+  describe('content processors', function() {
+
+    before(function() {
+      druck = Kartoffeldruck.run({ cwd: 'test/fixtures/content-processors' });
+
+      expectGenerated = createValidator('test/fixtures/content-processors');
+    });
+
+    after(function() {
+      druck.clean();
+    });
+
+    describe('defaults', function() {
+
+      it('should process md files as markdown by default', function() {
+
+        expectGenerated('markdown.html', [
+          '<h2 id="this-file-is-markdown-processed-by-default-">This file is markdown-processed by default.</h2>'
+        ]);
+
+      });
+
+
+      it('should not process non-md files by default', function() {
+
+        expectGenerated('as-is.html', [
+          '## This file is not processed.'
+        ]);
+
+      });
+
+    });
+
+    describe('config.contentProcessors', function() {
+
+      it('should disable markdown processor when content processors are disabled', function() {
+
+        druck.configure({
+          contentProcessors: false
+        });
+
+        druck.generate({
+          source: '*',
+          dest: ':name.html'
+        });
+
+        expectGenerated('markdown.html', [
+          '## This file is markdown-processed by default.'
+        ]);
+
+      });
+
+      it('should disable markdown processor when custom content processors are present', function() {
+
+        var called = false;
+        druck.configure({
+          contentProcessors: {
+            'dummy': function(content, page) { called = true; return content; }
+          }
+        });
+
+        druck.generate({
+          source: '*',
+          dest: ':name.html'
+        });
+
+        expectGenerated('markdown.html', [
+          '## This file is markdown-processed by default.'
+        ]);
+
+        expect(called).to.be.false;
+
+      });
+
+
+      it('should apply custom processors', function() {
+
+        druck.configure({
+          contentProcessors: {
+            '*.uppercase': function(content, page) { return content.toLowerCase(); }
+          }
+        });
+
+        druck.generate({
+          source: '*',
+          dest: ':name.html'
+        });
+
+        expectGenerated('to-lowercase.html', [
+          'all text here is uppercase.'
+        ]);
+
+        expectGenerated('as-is.html', [
+          '## This file is not processed.'
+        ]);
+
+      });
+
+    });
+
+  });
+
+
 });
