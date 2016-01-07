@@ -216,12 +216,12 @@ describe('generator', function() {
   });
 
 
-  describe('includes', function() {
+  describe('macro support', function() {
 
     before(function() {
-      druck = Kartoffeldruck.run({ cwd: 'test/fixtures/includes' });
+      druck = Kartoffeldruck.run({ cwd: 'test/fixtures/macro-support' });
 
-      expectGenerated = createValidator('test/fixtures/includes');
+      expectGenerated = createValidator('test/fixtures/macro-support');
     });
 
     after(function() {
@@ -229,9 +229,9 @@ describe('generator', function() {
     });
 
 
-    it('should process global includes in markdown', function() {
+    it('should enable the use of macros defined in templates within pages', function() {
 
-      expectGenerated('global-includes.html', [
+      expectGenerated('layout-macro.html', [
         '<img src="foo.gif" class="" />',
         '<span class="caption">FOO</span>'
       ]);
@@ -239,10 +239,10 @@ describe('generator', function() {
     });
 
 
-    it('should process page include in markdown', function() {
+    it('should allow macro definitions from within a page', function() {
 
-      expectGenerated('page-include.html', [
-        '<h1>FOO BAR</h1>'
+      expectGenerated('page-macro.html', [
+        '<h1>Hello World!</h1>'
       ]);
 
     });
