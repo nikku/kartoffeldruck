@@ -215,4 +215,38 @@ describe('generator', function() {
 
   });
 
+
+  describe('macro support', function() {
+
+    before(function() {
+      druck = Kartoffeldruck.run({ cwd: 'test/fixtures/macro-support' });
+
+      expectGenerated = createValidator('test/fixtures/macro-support');
+    });
+
+    after(function() {
+      druck.clean();
+    });
+
+
+    it('should process macros defined in templates within pages', function() {
+
+      expectGenerated('layout-macro.html', [
+        '<img src="foo.gif" class="" />',
+        '<span class="caption">FOO</span>'
+      ]);
+
+    });
+
+
+    it('should process macros defined in page', function() {
+
+      expectGenerated('page-macro.html', [
+        '<h1>Hello World!</h1>'
+      ]);
+
+    });
+
+  });
+
 });
