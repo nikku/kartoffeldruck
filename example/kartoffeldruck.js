@@ -1,3 +1,5 @@
+var marked = require('marked');
+
 var forEach = require('lodash/collection/forEach');
 
 module.exports = function(druck) {
@@ -49,6 +51,16 @@ module.exports = function(druck) {
     }
   });
 
+  // per default, kartoffeldruck will render markdown;
+  // if you'd like to change the default markdown processor
+  // or plug in additional processors, use the following:
+
+  druck.configure({
+    contentProcessors: {
+      '*.md': function(content, page) { return marked(content); },
+      '*': function(content, page) { return content; }
+    }
+  });
 
   // each post on its own page
 
