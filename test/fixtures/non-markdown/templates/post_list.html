@@ -1,0 +1,20 @@
+{% extends "blog.html" %}
+
+{% block content %}
+  {% for item in items %}
+    <div class="item">
+      <h1><a href="{{ relative(item.name) }}">{{ item.title }}</a></h1>
+
+      {{ render(item) }}
+    </div>
+  {% endfor %}
+
+  {% if page.previousRef != null %}
+    <a href="{{ relative(page.previousRef) }}">previous</a>
+  {% endif %}
+
+  {% if page.nextRef != null %}
+    <a href="{{ relative(page.nextRef) }}">next</a>
+  {% endif %}
+
+{% endblock %}
