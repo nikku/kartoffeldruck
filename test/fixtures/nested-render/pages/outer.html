@@ -1,0 +1,10 @@
+---
+
+layout: base
+
+---
+
+{% block content %}
+  OUTER
+  {{ render(include, 'without-layout') }}
+{% endblock %}

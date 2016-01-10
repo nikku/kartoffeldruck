@@ -269,4 +269,29 @@ describe('generator', function() {
 
   });
 
+
+  describe('nested render', function() {
+
+    before(function() {
+      druck = Kartoffeldruck.run({ cwd: 'test/fixtures/nested-render' });
+
+      expectGenerated = createValidator('test/fixtures/nested-render');
+    });
+
+    after(function() {
+      druck.clean();
+    });
+
+
+    it('should render nested with custom layout', function() {
+
+      expectGenerated('outer.html', [
+        'OUTER',
+        'FOO'
+      ]);
+
+    });
+
+  });
+
 });
