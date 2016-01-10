@@ -229,9 +229,29 @@ describe('generator', function() {
     });
 
 
-    it('should process macros defined in templates within pages', function() {
+    it('should process macros defined in templates', function() {
 
       expectGenerated('layout-macro.html', [
+        '<img src="foo.gif" class="" />',
+        '<span class="caption">FOO</span>'
+      ]);
+
+    });
+
+
+    it('should process macros defined in template includes', function() {
+
+      expectGenerated('layout-macro-include.html', [
+        '<img src="foo.gif" class="" />',
+        '<span class="caption">FOO</span>'
+      ]);
+
+    });
+
+
+    it('should process macros defined in template outside block', function() {
+
+      expectGenerated('layout-macro-include-block.html', [
         '<img src="foo.gif" class="" />',
         '<span class="caption">FOO</span>'
       ]);
