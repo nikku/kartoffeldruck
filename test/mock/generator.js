@@ -4,6 +4,7 @@ function Generator() {
 
   this.generate = function(options) {
     this._generated.push(options);
+    return 'rendered';
   };
 }
 
