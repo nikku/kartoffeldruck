@@ -6,7 +6,9 @@
     "kartoffeldruck": "bin/cmd.js"
   },
   "scripts": {
-    "test": "mocha -r test/expect -c --recursive test/spec"
+    "test": "mocha -r test/expect -c --recursive test/spec",
+    "lint": "eslint lib/** test/spec/**",
+    "travis": "npm run lint && npm run test"
   },
   "repository": {
     "type": "git",
@@ -39,6 +41,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "eslint": "^2.2.0",
     "mocha": "^2.1.0",
     "nunjucks-date": "^1.1.2"
   }
