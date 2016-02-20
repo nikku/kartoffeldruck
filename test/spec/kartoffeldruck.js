@@ -71,7 +71,7 @@ describe('kartoffeldruck.js descriptor', function() {
       it('should generate multiple posts', function() {
 
         // when
-        druck.generate({
+        var generated = druck.generate({
           source: 'posts/*.md',
           dest: ':name/index.html'
         });
@@ -87,7 +87,8 @@ describe('kartoffeldruck.js descriptor', function() {
               tags: [ 'a', 'b', 'c' ],
               title: 'first'
             },
-            locals: {}
+            locals: {},
+            rendered: 'rendered'
           },
           {
             dest: 'posts/02-second/index.html',
@@ -100,12 +101,13 @@ describe('kartoffeldruck.js descriptor', function() {
               tags: [ 'a' ],
               title: 'second'
             },
-            locals: {}
+            locals: {},
+            rendered: 'rendered'
           }
         ];
 
         // then
-        expect(generator._generated).to.eql(expectedResult);
+        expect(generated).to.eql(expectedResult);
       });
 
 
@@ -115,7 +117,7 @@ describe('kartoffeldruck.js descriptor', function() {
         var posts = druck.files('posts/*');
 
         // when
-        druck.generate({
+        var generated = druck.generate({
           source: 'index.html',
           dest: ':page/index.html',
           locals: { items: posts },
@@ -149,7 +151,8 @@ describe('kartoffeldruck.js descriptor', function() {
               layout: 'post_list',
               name: 'index',
               title: 'My blog'
-            }
+            },
+            rendered: 'rendered'
           },
           {
             dest: '2/index.html',
@@ -178,12 +181,13 @@ describe('kartoffeldruck.js descriptor', function() {
               layout: 'post_list',
               name: 'index',
               title: 'My blog'
-            }
+            },
+            rendered: 'rendered'
           }
         ];
 
         // then
-        expect(generator._generated).to.eql(expectedResult);
+        expect(generated).to.eql(expectedResult);
       });
 
     });
@@ -197,30 +201,29 @@ describe('kartoffeldruck.js descriptor', function() {
         druck.config.locals = { foo: 'BAR' };
 
         // when
-        druck.generate({
+        var generated = druck.generate({
           source: 'posts/01-first.md',
           dest: 'posts/01-first/index.html'
         });
 
-        var expectedResult = [
-          {
-            dest: 'posts/01-first/index.html',
-            locals: {
-              foo: 'BAR'
-            },
-            source: {
-              body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative(\"some-absolute-path\") }}',
-              id: 'posts/01-first.md',
-              layout: 'post',
-              name: 'posts/01-first',
-              tags: [ 'a', 'b', 'c' ],
-              title: 'first'
-            }
-          }
-        ];
+        var expectedResult = {
+          dest: 'posts/01-first/index.html',
+          locals: {
+            foo: 'BAR'
+          },
+          source: {
+            body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative(\"some-absolute-path\") }}',
+            id: 'posts/01-first.md',
+            layout: 'post',
+            name: 'posts/01-first',
+            tags: [ 'a', 'b', 'c' ],
+            title: 'first'
+          },
+          rendered: 'rendered'
+        };
 
         // then
-        expect(generator._generated).to.eql(expectedResult);
+        expect(generated).to.eql(expectedResult);
       });
 
     });
@@ -228,66 +231,53 @@ describe('kartoffeldruck.js descriptor', function() {
 
     describe('events', function() {
 
-      it('should trigger an event on paginated page generation', function() {
+      describe('generated', function() {
 
-        // given
-        var posts = druck.files('posts/*');
+        it('should trigger on paginated page generation', function() {
 
-        var results = [];
-        druck.on('generated', function(event) {
-          results.push(event);
+          // given
+          var posts = druck.files('posts/*');
+
+          var capturedEvents = [];
+
+          druck.on('generated', function(event) {
+            capturedEvents.push(event);
+          });
+
+          // when
+          var generated = druck.generate({
+            source: 'index.html',
+            dest: ':page/index.html',
+            locals: { items: posts },
+            paginate: 1,
+            customProp: 'FOO'
+          });
+
+          // then
+          expect(capturedEvents).to.eql(generated);
         });
 
-        // when
-        druck.generate({
-          source: 'index.html',
-          dest: ':page/index.html',
-          locals: { items: posts },
-          paginate: 1,
-          myCustomProp: 'HOME'
+
+        it('should trigger on wildcard page generation', function() {
+
+          // given
+          var capturedEvents = [];
+
+          druck.on('generated', function(event) {
+            capturedEvents.push(event);
+          });
+
+          // when
+          var generated = druck.generate({
+            source: 'posts/*',
+            dest: ':name/index.html',
+            customProp: 'HOME'
+          });
+
+          // then
+          expect(capturedEvents).to.eql(generated);
         });
 
-        // then
-        expect(results.length).to.eql(2);
-
-        expect(results[0].dest).to.eql('index.html');
-        expect(results[1].dest).to.eql('2/index.html');
-
-        results.every(function(result, index) {
-          expect(result.rendered).to.eql('rendered');
-          expect(result.myCustomProp).to.eql('HOME');
-          expect(result.locals.items).to.eql([posts[index]]);
-        });
-      });
-
-      it('should trigger an event on wildcard page generation', function() {
-
-        // given
-        var results = [];
-        druck.on('generated', function(event) {
-          results.push(event);
-        });
-
-        // when
-        druck.generate({
-          source: 'posts/*',
-          dest: ':name/index.html',
-          myCustomProp: 'HOME'
-        });
-
-        // then
-        expect(results.length).to.eql(2);
-
-        expect(results[0].source.id).to.eql('posts/01-first.md');
-        expect(results[0].dest).to.eql('posts/01-first/index.html');
-        expect(results[1].source.id).to.eql('posts/02-second.md');
-        expect(results[1].dest).to.eql('posts/02-second/index.html');
-
-        results.every(function(result) {
-          expect(result).to.contain.all.keys('dest', 'source', 'rendered', 'locals', 'myCustomProp');
-          expect(result.rendered).to.eql('rendered');
-          expect(result.myCustomProp).to.eql('HOME');
-        });
       });
 
     });
