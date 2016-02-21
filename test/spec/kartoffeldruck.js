@@ -142,6 +142,8 @@ describe('kartoffeldruck.js descriptor', function() {
                 idx: 0,
                 nextRef: '2',
                 previousRef: null,
+                firstRef: '',
+                lastRef: '2',
                 totalPages: 2
               }
             },
@@ -172,6 +174,8 @@ describe('kartoffeldruck.js descriptor', function() {
                 idx: 1,
                 nextRef: null,
                 previousRef: '',
+                firstRef: '',
+                lastRef: '2',
                 totalPages: 2
               }
             },
