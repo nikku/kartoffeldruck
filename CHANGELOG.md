@@ -6,6 +6,10 @@ All notable changes to [kartoffeldruck](https://github.com/nikku/kartoffeldruck)
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.0.0
+
+* `FEAT`: allow custom content processors to be provided [#4](https://github.com/nikku/kartoffeldruck/issues/4).
+
 ## ...
 
 Check `git log` for earlier history.
