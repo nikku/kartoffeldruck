@@ -80,7 +80,7 @@ describe('kartoffeldruck.js descriptor', function() {
           {
             dest: 'posts/01-first/index.html',
             source: {
-              body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative(\"some-absolute-path\") }}',
+              body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative("some-absolute-path") }}',
               id: 'posts/01-first.md',
               layout: 'post',
               name: 'posts/01-first',
@@ -130,7 +130,7 @@ describe('kartoffeldruck.js descriptor', function() {
             locals: {
               items: [
                 {
-                  body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative(\"some-absolute-path\") }}',
+                  body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative("some-absolute-path") }}',
                   id: 'posts/01-first.md',
                   layout: 'post',
                   name: 'posts/01-first',
@@ -216,7 +216,7 @@ describe('kartoffeldruck.js descriptor', function() {
             foo: 'BAR'
           },
           source: {
-            body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative(\"some-absolute-path\") }}',
+            body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative("some-absolute-path") }}',
             id: 'posts/01-first.md',
             layout: 'post',
             name: 'posts/01-first',
