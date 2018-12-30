@@ -116,6 +116,26 @@ describe('kartoffeldruck.js descriptor', function() {
         // given
         var posts = druck.files('posts/*');
 
+        var allItems = [
+          {
+            body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative("some-absolute-path") }}',
+            id: 'posts/01-first.md',
+            layout: 'post',
+            name: 'posts/01-first',
+            tags: [ 'a', 'b', 'c' ],
+            title: 'first'
+          },
+          {
+            body: '\nOther post.\n\n*YEA*!',
+            draft: true,
+            id: 'posts/02-second.md',
+            layout: 'post',
+            name: 'posts/02-second',
+            tags: [ 'a' ],
+            title: 'second'
+          }
+        ];
+
         // when
         var generated = druck.generate({
           source: 'index.html',
@@ -128,16 +148,8 @@ describe('kartoffeldruck.js descriptor', function() {
           {
             dest: 'index.html',
             locals: {
-              items: [
-                {
-                  body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative("some-absolute-path") }}',
-                  id: 'posts/01-first.md',
-                  layout: 'post',
-                  name: 'posts/01-first',
-                  tags: [ 'a', 'b', 'c' ],
-                  title: 'first'
-                }
-              ],
+              allItems: allItems,
+              items: [ allItems[0] ],
               page: {
                 idx: 0,
                 nextRef: '2',
@@ -159,17 +171,8 @@ describe('kartoffeldruck.js descriptor', function() {
           {
             dest: '2/index.html',
             locals: {
-              items: [
-                {
-                  body: '\nOther post.\n\n*YEA*!',
-                  draft: true,
-                  id: 'posts/02-second.md',
-                  layout: 'post',
-                  name: 'posts/02-second',
-                  tags: [ 'a' ],
-                  title: 'second'
-                }
-              ],
+              allItems: allItems,
+              items: [ allItems[1] ],
               page: {
                 idx: 1,
                 nextRef: null,

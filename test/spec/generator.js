@@ -136,7 +136,7 @@ describe('generator', function() {
       // then
       expectGenerated('_tagged/a/index.html', [
         '<title>Posts tagged with a</title>',
-        '<h2>Tagged with a</h2>',
+        '<h2>2 Tagged with a</h2>',
         '<h1><a href="../../posts/01-first">first</a></h1>'
       ]);
 

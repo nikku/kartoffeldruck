@@ -6,6 +6,7 @@ All notable changes to [kartoffeldruck](https://github.com/nikku/kartoffeldruck)
 
 ___Note:__ Yet to be released changes appear here._
 
+* `FEAT`: expose `allItems` in paginated contexts
 * `CHORE`: migrate to `lodash@4`
 
 ## 1.0.0
