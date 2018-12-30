@@ -6,6 +6,8 @@ All notable changes to [kartoffeldruck](https://github.com/nikku/kartoffeldruck)
 
 ___Note:__ Yet to be released changes appear here._
 
+## 2.0.0
+
 * `FEAT`: expose `allItems` in paginated contexts
 * `CHORE`: bump dependencies
 
