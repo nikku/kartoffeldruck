@@ -1,6 +1,6 @@
 var fs = require('fs');
 
-var forEach = require('lodash/collection/forEach');
+var forEach = require('lodash/forEach');
 
 var Kartoffeldruck = require('../../');
 

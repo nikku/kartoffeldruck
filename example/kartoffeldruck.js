@@ -1,6 +1,6 @@
 var marked = require('marked');
 
-var forEach = require('lodash/collection/forEach');
+var forEach = require('lodash/forEach');
 
 module.exports = function(druck) {
 
