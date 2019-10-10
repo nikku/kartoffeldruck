@@ -1,6 +1,6 @@
 # kartoffeldruck
 
-[![Build Status](https://travis-ci.org/nikku/kartoffeldruck.svg?branch=master)](https://travis-ci.org/nikku/kartoffeldruck)
+[![Build Status](https://travis-ci.com/nikku/kartoffeldruck.svg?branch=master)](https://travis-ci.com/nikku/kartoffeldruck)
 
 An intentionally non-pluggable, all-in-one, opinionated static site generator. Built with the zen of [kartoffeldruck](https://de.wikipedia.org/wiki/Kartoffeldruck).
 
