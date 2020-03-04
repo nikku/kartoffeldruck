@@ -6,6 +6,10 @@ All notable changes to [kartoffeldruck](https://github.com/nikku/kartoffeldruck)
 
 ___Note:__ Yet to be released changes appear here._
 
+## 3.1.1
+
+* `FIX`: generate natural number page meta-data
+
 ## 3.1.0
 
 * `CHORE`: bump `nunjucks` to `@nikku/nunjucks@4.0.0`
