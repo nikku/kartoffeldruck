@@ -350,7 +350,7 @@ describe('generator', function() {
       it('should process md files as markdown by default', function() {
 
         expectGenerated('markdown.html', [
-          '<h2 id="this-file-is-markdown-processed-by-default-">This file is markdown-processed by default.</h2>'
+          '\n<h2 id="this-file-is-markdown-processed-by-default">This file is markdown-processed by default.</h2>\n\n\n'
         ]);
 
       });
