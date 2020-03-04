@@ -6,6 +6,12 @@ All notable changes to [kartoffeldruck](https://github.com/nikku/kartoffeldruck)
 
 ___Note:__ Yet to be released changes appear here._
 
+## 3.1.0
+
+* `CHORE`: bump `nunjucks` to `@nikku/nunjucks@4.0.0`
+* `CHORE`: drop `lodash` in favor of `min-dash`
+* `CHORE`: substantially reduce install size
+
 ## 3.0.0
 
 * `CHORE`: remove `Kartoffeldruck#clean` from public API
