@@ -2,6 +2,8 @@ var fs = require('fs');
 
 var forEach = require('lodash/forEach');
 
+var del = require('del');
+
 var Kartoffeldruck = require('../../');
 
 
@@ -21,6 +23,10 @@ function createValidator(cwd) {
   };
 }
 
+function clean(druck) {
+  del.sync(druck.config.dest);
+}
+
 
 describe('generator', function() {
 
@@ -35,7 +41,7 @@ describe('generator', function() {
     });
 
     afterEach(function() {
-      druck.clean();
+      clean(druck);
     });
 
 
@@ -189,7 +195,7 @@ describe('generator', function() {
     });
 
     after(function() {
-      druck.clean();
+      clean(druck);
     });
 
 
@@ -225,7 +231,7 @@ describe('generator', function() {
     });
 
     after(function() {
-      druck.clean();
+      clean(druck);
     });
 
 
@@ -279,7 +285,7 @@ describe('generator', function() {
     });
 
     after(function() {
-      druck.clean();
+      clean(druck);
     });
 
 
@@ -303,7 +309,7 @@ describe('generator', function() {
     });
 
     after(function() {
-      druck.clean();
+      clean(druck);
     });
 
 
@@ -341,7 +347,7 @@ describe('generator', function() {
     });
 
     after(function() {
-      druck.clean();
+      clean(druck);
     });
 
 
