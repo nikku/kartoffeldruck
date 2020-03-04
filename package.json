@@ -32,8 +32,8 @@
     "colors": "^1.4.0",
     "front-matter": "^0.2.3",
     "glob": "^7.1.6",
-    "lodash": "^4.17.15",
     "marked": "^0.8.0",
+    "min-dash": "^3.5.2",
     "minimatch": "^3.0.0",
     "mkdirp": "^1.0.3"
   },

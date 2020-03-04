@@ -1,6 +1,8 @@
 var marked = require('marked');
 
-var forEach = require('lodash/forEach');
+var {
+  forEach
+} = require('min-dash');
 
 module.exports = function(druck) {
 

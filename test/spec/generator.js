@@ -1,6 +1,8 @@
 var fs = require('fs');
 
-var forEach = require('lodash/forEach');
+var {
+  forEach
+} = require('min-dash');
 
 var del = require('del');
 

@@ -1,5 +1,3 @@
-var forEach = require('lodash/forEach');
-
 module.exports = function(druck) {
 
   // grep for files
