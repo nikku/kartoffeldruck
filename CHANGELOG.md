@@ -6,6 +6,10 @@ All notable changes to [kartoffeldruck](https://github.com/nikku/kartoffeldruck)
 
 ___Note:__ Yet to be released changes appear here._
 
+## 2.1.1
+
+* `CHORE`: do not publish development assets
+
 ## 2.1.0
 
 * `CHORE`: bump dependencies
