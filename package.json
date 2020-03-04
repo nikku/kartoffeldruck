@@ -29,7 +29,6 @@
   "license": "MIT",
   "dependencies": {
     "colors": "^1.4.0",
-    "cp": "^0.2.0",
     "front-matter": "^0.2.3",
     "glob": "^7.1.6",
     "lodash": "^4.17.15",
