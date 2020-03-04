@@ -6,6 +6,11 @@ All notable changes to [kartoffeldruck](https://github.com/nikku/kartoffeldruck)
 
 ___Note:__ Yet to be released changes appear here._
 
+## 3.0.0
+
+* `CHORE`: remove `Kartoffeldruck#clean` from public API
+* `CHORE`: bump to `marked@0.8.0`
+
 ## 2.1.1
 
 * `CHORE`: do not publish development assets
