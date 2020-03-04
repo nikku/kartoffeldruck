@@ -111,7 +111,7 @@ describe('kartoffeldruck.js descriptor', function() {
       });
 
 
-      it('should aggregate items in single post', function() {
+      it('should aggregate items over multiple pages', function() {
 
         // given
         var posts = druck.files('posts/*');
@@ -197,6 +197,69 @@ describe('kartoffeldruck.js descriptor', function() {
         expect(generated).to.eql(expectedResult);
       });
 
+
+      it('should aggregate items on single page', function() {
+
+        // given
+        var posts = druck.files('posts/*');
+
+        var allItems = [
+          {
+            body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative("some-absolute-path") }}',
+            id: 'posts/01-first.md',
+            layout: 'post',
+            name: 'posts/01-first',
+            tags: [ 'a', 'b', 'c' ],
+            title: 'first'
+          },
+          {
+            body: '\nOther post.\n\n*YEA*!',
+            draft: true,
+            id: 'posts/02-second.md',
+            layout: 'post',
+            name: 'posts/02-second',
+            tags: [ 'a' ],
+            title: 'second'
+          }
+        ];
+
+        // when
+        var generated = druck.generate({
+          source: 'index.html',
+          dest: ':page/index.html',
+          locals: { items: posts },
+          paginate: 3
+        });
+
+        var expectedResult = [
+          {
+            dest: 'index.html',
+            locals: {
+              allItems: allItems,
+              items: allItems,
+              page: {
+                idx: 0,
+                nextRef: null,
+                previousRef: null,
+                firstRef: '',
+                lastRef: '',
+                totalPages: 1
+              }
+            },
+            source: {
+              body: '\n\n{% block header %}\n  <h2>Welcome to my blog</h2>\n{% endblock %}',
+              id: 'index.html',
+              layout: 'post_list',
+              name: 'index',
+              title: 'My blog'
+            },
+            rendered: 'rendered'
+          }
+        ];
+
+        // then
+        expect(generated).to.eql(expectedResult);
+      });
     });
 
 
