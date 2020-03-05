@@ -93,12 +93,17 @@ Simply add the following task to your `Gruntfile.js`:
 
 ```
 grunt.registerTask('kartoffeldruck', function() {
-  var kartoffeldruck = require('kartoffeldruck');
-  kartoffeldruck.run({
+  var done = this.async();
+
+  require('kartoffeldruck').run({
     logger: {
-      log: grunt.log.ok
+      debug: grunt.log.ok,
+      info: grunt.log.ok
     }
-  });
+  }).then(
+    () => done(),
+    (err) => done(err)
+  );
 });
 ```
 
