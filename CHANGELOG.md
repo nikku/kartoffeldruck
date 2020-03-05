@@ -6,6 +6,11 @@ All notable changes to [kartoffeldruck](https://github.com/nikku/kartoffeldruck)
 
 ___Note:__ Yet to be released changes appear here._
 
+## 4.0.0
+
+* `FEAT`: make runner async capable
+* `CHORE`: throw structured build errors
+
 ## 3.1.1
 
 * `FIX`: generate natural number page meta-data
