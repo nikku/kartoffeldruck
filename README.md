@@ -34,16 +34,10 @@ We intentionally _do not_ provide any css processing pipelines or asset copy uti
 
 ## Usage
 
-Get the dependency via [npm](https://npmjs.org):
-
-```
-npm install kartoffeldruck
-```
-
 Place a `kartoffeldruck.js` file in your current project directory:
 
 ```javascript
-module.exports = function(druck) {
+module.exports = async function(druck) {
 
   // initialize the kartoffeldruck instance
   // you may specify (global) template locals
@@ -64,15 +58,28 @@ module.exports = function(druck) {
 };
 ```
 
+Install the `kartoffeldruck` globally via [npm](https://npmjs.org):
+
+```shell
+$ npm i -g kartoffeldruck
+```
+
 Run `kartoffeldruck` in the current directory. It will pick up your runner file and generate the site into the `dist` directory (or whatever is specified as `dest` via `druck.init(options)`.
 
+
 ```
-> kartoffeldruck
+$ kartoffeldruck
 Generating site in /some-dir
 Done
 ```
 
-Check out the [example project](https://github.com/nikku/kartoffeldruck/tree/master/example) to learn more.
+Alternatively, run `kartoffeldruck` directly via `npx`:
+
+```
+$ npx kartoffeldruck
+```
+
+Check out the [example project](https://github.com/nikku/kartoffeldruck/tree/master/example) to learn more about what is possible with the library.
 
 
 ## Alternatives
