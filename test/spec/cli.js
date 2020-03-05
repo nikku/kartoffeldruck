@@ -39,7 +39,7 @@ describe('cli', function() {
         // then
         expect(err).to.exist;
 
-        expect(err.message).to.match(/failed to load kartoffeldruck.js runner in/);
+        expect(err.message).to.match(/failed to load </);
       });
 
 
@@ -61,7 +61,7 @@ describe('cli', function() {
         // then
         expect(err).to.exist;
 
-        expect(err.message).to.match(/failed to run kartoffeldruck.js runner in/);
+        expect(err.message).to.match(/failed to execute </);
       });
 
     });
