@@ -190,8 +190,8 @@ describe('generator', function() {
 
   describe('helpers', function() {
 
-    before(function() {
-      druck = Kartoffeldruck.run({ cwd: 'example' });
+    before(async function() {
+      druck = await Kartoffeldruck.run({ cwd: 'example' });
 
       expectGenerated = createValidator('example');
     });
@@ -226,8 +226,8 @@ describe('generator', function() {
 
   describe('macro support', function() {
 
-    before(function() {
-      druck = Kartoffeldruck.run({ cwd: 'test/fixtures/macro-support' });
+    before(async function() {
+      druck = await Kartoffeldruck.run({ cwd: 'test/fixtures/macro-support' });
 
       expectGenerated = createValidator('test/fixtures/macro-support');
     });
@@ -278,10 +278,33 @@ describe('generator', function() {
   });
 
 
+  describe('async support', function() {
+
+    before(async function() {
+      druck = await Kartoffeldruck.run({ cwd: 'test/fixtures/async-runner' });
+
+      expectGenerated = createValidator('test/fixtures/async-runner');
+    });
+
+    after(function() {
+      clean(druck);
+    });
+
+
+    it('should render files', function() {
+
+      expectGenerated('test.html', [
+        'TEST'
+      ]);
+    });
+
+  });
+
+
   describe('nested render', function() {
 
-    before(function() {
-      druck = Kartoffeldruck.run({ cwd: 'test/fixtures/nested-render' });
+    before(async function() {
+      druck = await Kartoffeldruck.run({ cwd: 'test/fixtures/nested-render' });
 
       expectGenerated = createValidator('test/fixtures/nested-render');
     });
@@ -304,8 +327,8 @@ describe('generator', function() {
 
   describe('non-markdown content', function() {
 
-    before(function() {
-      druck = Kartoffeldruck.run({ cwd: 'test/fixtures/non-markdown' });
+    before(async function() {
+      druck = await Kartoffeldruck.run({ cwd: 'test/fixtures/non-markdown' });
 
       expectGenerated = createValidator('test/fixtures/non-markdown');
     });
@@ -342,8 +365,8 @@ describe('generator', function() {
 
   describe('content processors', function() {
 
-    before(function() {
-      druck = Kartoffeldruck.run({ cwd: 'test/fixtures/content-processors' });
+    before(async function() {
+      druck = await Kartoffeldruck.run({ cwd: 'test/fixtures/content-processors' });
 
       expectGenerated = createValidator('test/fixtures/content-processors');
     });

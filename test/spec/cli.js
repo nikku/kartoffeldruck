@@ -7,28 +7,63 @@ describe('cli', function() {
 
   describe('Kartoffeldruck#run', function() {
 
-    it('should return druck instance', function() {
+    it('should return druck instance', async function() {
 
       // when
-      var druck = Kartoffeldruck.run({ cwd: path.resolve('test/fixtures/empty') });
+      var druck = await Kartoffeldruck.run({
+        cwd: path.resolve('test/fixtures/empty')
+      });
 
       // then
       expect(druck instanceof Kartoffeldruck).to.be.true;
     });
 
 
-    it('should fail on broken kartoffeldruck.js', function() {
+    describe('error handling', function() {
 
-      // when
-      var init = function() {
-        Kartoffeldruck.run({
-          cwd: path.resolve('test/fixtures/broken-config'),
-          logger: console
-        });
-      };
+      it('should handle broken runner', async function() {
 
-      // then
-      expect(init).to.throw(/failed to parse kartoffeldruck.js runner in/);
+        // given
+        let err;
+
+        // when
+        try {
+          await Kartoffeldruck.run({
+            cwd: path.resolve('test/fixtures/broken-config'),
+            logger: console
+          });
+        } catch (e) {
+          err = e;
+        }
+
+        // then
+        expect(err).to.exist;
+
+        expect(err.message).to.match(/failed to load kartoffeldruck.js runner in/);
+      });
+
+
+      it('should handle failing runner', async function() {
+
+        // given
+        let err;
+
+        // when
+        try {
+          await Kartoffeldruck.run({
+            cwd: path.resolve('test/fixtures/failing-runner'),
+            logger: console
+          });
+        } catch (e) {
+          err = e;
+        }
+
+        // then
+        expect(err).to.exist;
+
+        expect(err.message).to.match(/failed to run kartoffeldruck.js runner in/);
+      });
+
     });
 
   });

@@ -13,7 +13,11 @@ describe('kartoffeldruck.js descriptor', function() {
 
     beforeEach(function() {
       generator = new GeneratorMock();
-      druck = new Kartoffeldruck({ cwd: path.resolve('example'), generator: generator });
+
+      druck = new Kartoffeldruck({
+        cwd: path.resolve('example'),
+        generator
+      });
     });
 
 
