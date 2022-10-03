@@ -34,14 +34,14 @@
   "license": "MIT",
   "dependencies": {
     "@nikku/nunjucks": "^4.0.0",
+    "aggregate-error": "^3.1.0",
     "colors": "^1.4.0",
     "front-matter": "^0.2.3",
     "marked": "^4.1.1",
     "min-dash": "^4.0.0",
     "minimatch": "^3.0.0",
     "mkdirp": "^1.0.3",
-    "tiny-glob": "^0.2.9",
-    "verror": "^1.10.0"
+    "tiny-glob": "^0.2.9"
   },
   "devDependencies": {
     "chai": "^4.3.6",

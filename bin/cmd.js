@@ -2,8 +2,6 @@
 
 const Kartoffeldruck = require('../');
 
-const VError = require('verror');
-
 const argv = process.argv;
 
 if (argv[2] === '--help') {
@@ -17,7 +15,7 @@ if (process.argv.length > 2) {
 }
 
 Kartoffeldruck.run({ logger: console }).catch((err) => {
-  console.error(VError.fullStack(err));
+  console.error(err);
 
   process.exit(1);
 });
