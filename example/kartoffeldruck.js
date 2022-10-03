@@ -1,5 +1,8 @@
 const { marked } = require('marked');
 
+/**
+ * @param { import('../lib').Kartoffeldruck } druck
+ */
 module.exports = async function(druck) {
 
   druck.init({

@@ -1,6 +1,6 @@
 const path = require('path');
 
-const Kartoffeldruck = require('../../');
+const { Kartoffeldruck } = require('../..');
 
 
 describe('cli', function() {

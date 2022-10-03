@@ -6,7 +6,7 @@ const {
 
 const del = require('del');
 
-const Kartoffeldruck = require('../../');
+const { Kartoffeldruck } = require('../..');
 
 
 function createValidator(cwd) {

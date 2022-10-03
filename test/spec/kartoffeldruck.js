@@ -2,7 +2,7 @@ const path = require('path');
 
 const GeneratorMock = require('../mock/generator');
 
-const Kartoffeldruck = require('../../');
+const { Kartoffeldruck } = require('../..');
 
 
 describe('kartoffeldruck.js descriptor', function() {
