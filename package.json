@@ -39,7 +39,7 @@
     "front-matter": "^0.2.3",
     "marked": "^4.1.1",
     "min-dash": "^4.0.0",
-    "mkdirp": "^1.0.3",
+    "mkdirp": "^1.0.4",
     "picomatch": "^2.3.1",
     "tiny-glob": "^0.2.9"
   },
