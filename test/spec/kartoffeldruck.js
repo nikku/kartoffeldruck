@@ -24,6 +24,7 @@ describe('kartoffeldruck.js descriptor', function() {
     describe('#files', function() {
 
       it('should glob existing', function() {
+
         // when
         var entries = druck.files('posts/*.md');
 
@@ -33,6 +34,7 @@ describe('kartoffeldruck.js descriptor', function() {
 
 
       it('should glob non-existing', function() {
+
         // when
         var entries = druck.files('non-existing.html');
 
@@ -44,6 +46,7 @@ describe('kartoffeldruck.js descriptor', function() {
       describe('#get', function() {
 
         it('should not fail on non-existing', function() {
+
           // when
           var entry = druck.files.get('non-existing.html');
 
@@ -53,6 +56,7 @@ describe('kartoffeldruck.js descriptor', function() {
 
 
         it('should parse front matter', function() {
+
           // when
           var entry = druck.files.get('posts/01-first.md');
 
@@ -80,7 +84,7 @@ describe('kartoffeldruck.js descriptor', function() {
           dest: ':name/index.html'
         });
 
-        var expectedResult =  [
+        var expectedResult = [
           {
             dest: 'posts/01-first/index.html',
             source: {

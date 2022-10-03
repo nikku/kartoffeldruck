@@ -1,24 +1,5 @@
 {
-  "rules": {
-    "no-unused-vars": [ 2, { "args": "none" } ],
-    "quotes": [ 2, "single" ],
-    "semi": [ 2, "always" ],
-    "no-console": 0
-  },
-  "env": {
-    "node": true
-  },
-  "parserOptions": {
-    "ecmaVersion": 2018
-  },
-  "extends": "eslint:recommended",
-  "globals": {
-    "expect": false,
-    "it": false,
-    "describe": false,
-    "beforeEach": true,
-    "afterEach": true,
-    "before": true,
-    "after": true
-  }
+  "extends": [
+    "plugin:bpmn-io/node"
+  ]
 }
