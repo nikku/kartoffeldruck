@@ -1,6 +1,6 @@
 var PATTERN = /^(.+)\s*<(.+)>$/;
 
-module.exports = function author(str)  {
+module.exports = function author(str) {
   var result;
 
   var match = PATTERN.exec(str);

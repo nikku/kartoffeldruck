@@ -7,7 +7,7 @@
   },
   "scripts": {
     "test": "mocha -r test/expect -c --recursive test/spec",
-    "lint": "eslint lib/** test/spec/**",
+    "lint": "eslint .",
     "all": "run-s lint test"
   },
   "repository": {
