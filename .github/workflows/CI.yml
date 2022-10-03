@@ -21,7 +21,6 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Build
-      if: matrix.os == 'ubuntu-latest'
       run: npm run all
     - name: Upload Coverage
       uses: codecov/codecov-action@v3
