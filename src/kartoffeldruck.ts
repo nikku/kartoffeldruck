@@ -19,7 +19,7 @@ import Nunjucks from '@nikku/nunjucks';
 import { marked } from 'marked';
 import picomatch from 'picomatch';
 
-import colors from 'colors/safe';
+import { yellow as colorYellow } from 'kleur/colors';
 
 import { NopLogger } from './logger';
 
@@ -395,7 +395,7 @@ Kartoffeldruck.run = async function(options) {
     ]);
   }
 
-  logger.info('done in ' + colors.yellow((Date.now() - time) + 'ms'));
+  logger.info('done in ' + colorYellow((Date.now() - time) + 'ms'));
 
   return druck;
 };
