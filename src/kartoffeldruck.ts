@@ -77,7 +77,7 @@ Kartoffeldruck.prototype.getNunjucks = function() {
 Kartoffeldruck.prototype.getContentProcessors = function(page) {
   const config = this.config;
 
-  function markdownProcessor(content, page) {
+  function markdownProcessor(content, _page) {
     return marked(content);
   }
 
@@ -183,8 +183,6 @@ Kartoffeldruck.prototype.configure = function(config) {
  */
 Kartoffeldruck.prototype.generate = async function(options) {
 
-  const self = this;
-
   let source = options.source;
 
   if (isString(source)) {
@@ -201,18 +199,18 @@ Kartoffeldruck.prototype.generate = async function(options) {
     }
   }
 
-  function generateEach(sources, options) {
+  const generateEach = (sources, options) => {
     return Promise.all(
-      sources.map(function(source) {
-        return self.generate(assign({ }, options, {
+      sources.map((source) => {
+        return this.generate(assign({ }, options, {
           source,
-          dest: self.expandUri(options.dest, source, options.locals)
+          dest: this.expandUri(options.dest, source, options.locals)
         }));
       })
     );
-  }
+  };
 
-  function paginate(source, options) {
+  const paginate = (source, options) => {
 
     const locals = options.locals,
           items = locals.items,
@@ -223,32 +221,32 @@ Kartoffeldruck.prototype.generate = async function(options) {
       throw new Error('must specify locals: { items } with pagination');
     }
 
-    function generatePage(idx) {
+    const generatePage = (idx) => {
 
       const paged = items.slice(pageSize * idx, pageSize * idx + pageSize);
 
       const {
-        paginate,
+        paginate: _paginate,
         ...pagedOptions
       } = assign({ }, options, {
         source,
-        dest: self.expandUri(options.dest, source, locals, idx),
+        dest: this.expandUri(options.dest, source, locals, idx),
         locals: assign({}, locals, {
           items: paged,
           allItems: items,
           page: {
             idx: idx,
             totalPages,
-            previousRef: (idx > 0 ? self.expandUri(options.dest, source, locals, idx - 1).replace(/\/?index\.html$/, '') : null),
-            nextRef: (idx + 1 < totalPages ? self.expandUri(options.dest, source, locals, idx + 1).replace(/\/?index\.html$/, '') : null),
-            firstRef: self.expandUri(options.dest, source, locals, 0).replace(/\/?index\.html$/, ''),
-            lastRef: self.expandUri(options.dest, source, locals, totalPages - 1).replace(/\/?index\.html$/, '')
+            previousRef: (idx > 0 ? this.expandUri(options.dest, source, locals, idx - 1).replace(/\/?index\.html$/, '') : null),
+            nextRef: (idx + 1 < totalPages ? this.expandUri(options.dest, source, locals, idx + 1).replace(/\/?index\.html$/, '') : null),
+            firstRef: this.expandUri(options.dest, source, locals, 0).replace(/\/?index\.html$/, ''),
+            lastRef: this.expandUri(options.dest, source, locals, totalPages - 1).replace(/\/?index\.html$/, '')
           }
         })
       });
 
-      return self.generate(pagedOptions);
-    }
+      return this.generate(pagedOptions);
+    };
 
     // always generate at least the first page,
     // independent of whether items have been provided
@@ -256,7 +254,7 @@ Kartoffeldruck.prototype.generate = async function(options) {
 
     // generate pages in range
     return Promise.all(pages.map(generatePage));
-  }
+  };
 
   // generate multiple pages
   if (isArray(source)) {
@@ -338,12 +336,12 @@ Kartoffeldruck.prototype.loadFile = async function(id) {
 };
 
 Kartoffeldruck.prototype.ensureDirExists = async function(filePath) {
-  var dirname = path.dirname(filePath);
+  const dirname = path.dirname(filePath);
   await mkdirp(dirname);
 };
 
 Kartoffeldruck.prototype.writeFile = async function(dest, contents) {
-  var fullPath = path.join(this.config.dest, dest);
+  const fullPath = path.join(this.config.dest, dest);
 
   await this.ensureDirExists(fullPath);
 

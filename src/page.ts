@@ -1,6 +1,6 @@
-const {
+import {
   assign
-} = require('min-dash');
+} from 'min-dash';
 
 
 export default class Page {
@@ -11,10 +11,10 @@ export default class Page {
   [name: string]: any;
 
   constructor(
-    id: string,
-    name: string,
-    attributes: Record<string, any>,
-    body: string
+      id: string,
+      name: string,
+      attributes: Record<string, any>,
+      body: string
   ) {
 
     this.id = id;
