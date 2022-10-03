@@ -1,15 +1,15 @@
-var path = require('path');
+const path = require('path');
 
-var GeneratorMock = require('../mock/generator');
+const GeneratorMock = require('../mock/generator');
 
-var Kartoffeldruck = require('../../');
+const Kartoffeldruck = require('../../');
 
 
 describe('kartoffeldruck.js descriptor', function() {
 
   describe('druck', function() {
 
-    var druck, generator;
+    let druck, generator;
 
     beforeEach(function() {
       generator = new GeneratorMock();
@@ -26,7 +26,7 @@ describe('kartoffeldruck.js descriptor', function() {
       it('should glob existing', async function() {
 
         // when
-        var entries = await druck.files('posts/*.md');
+        const entries = await druck.files('posts/*.md');
 
         // then
         expect(entries.length).to.eql(2);
@@ -61,7 +61,7 @@ describe('kartoffeldruck.js descriptor', function() {
       it('should glob non-existing', async function() {
 
         // when
-        var entries = await druck.files('non-existing.html');
+        const entries = await druck.files('non-existing.html');
 
         // then
         expect(entries.length).to.eql(0);
@@ -73,7 +73,7 @@ describe('kartoffeldruck.js descriptor', function() {
         it('should not fail on non-existing', async function() {
 
           // when
-          var entry = await druck.files.get('non-existing.html');
+          const entry = await druck.files.get('non-existing.html');
 
           // then
           expect(entry).not.to.exist;
@@ -83,7 +83,7 @@ describe('kartoffeldruck.js descriptor', function() {
         it('should parse front matter', async function() {
 
           // when
-          var entry = await druck.files.get('posts/01-first.md');
+          const entry = await druck.files.get('posts/01-first.md');
 
           // then
           expect(entry.id).to.eql('posts/01-first.md');
@@ -104,12 +104,12 @@ describe('kartoffeldruck.js descriptor', function() {
       it('should generate multiple posts', async function() {
 
         // when
-        var generated = await druck.generate({
+        const generated = await druck.generate({
           source: 'posts/*.md',
           dest: ':name/index.html'
         });
 
-        var expectedResult = [
+        const expectedResult = [
           {
             dest: 'posts/01-first/index.html',
             source: {
@@ -147,9 +147,9 @@ describe('kartoffeldruck.js descriptor', function() {
       it('should aggregate items over multiple pages', async function() {
 
         // given
-        var posts = await druck.files('posts/*');
+        const posts = await druck.files('posts/*');
 
-        var allItems = [
+        const allItems = [
           {
             body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative("some-absolute-path") }}',
             id: 'posts/01-first.md',
@@ -170,14 +170,14 @@ describe('kartoffeldruck.js descriptor', function() {
         ];
 
         // when
-        var generated = await druck.generate({
+        const generated = await druck.generate({
           source: 'index.html',
           dest: ':page/index.html',
           locals: { items: posts },
           paginate: 1
         });
 
-        var expectedResult = [
+        const expectedResult = [
           {
             dest: 'index.html',
             locals: {
@@ -234,9 +234,9 @@ describe('kartoffeldruck.js descriptor', function() {
       it('should aggregate items on single page', async function() {
 
         // given
-        var posts = await druck.files('posts/*');
+        const posts = await druck.files('posts/*');
 
-        var allItems = [
+        const allItems = [
           {
             body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative("some-absolute-path") }}',
             id: 'posts/01-first.md',
@@ -257,14 +257,14 @@ describe('kartoffeldruck.js descriptor', function() {
         ];
 
         // when
-        var generated = await druck.generate({
+        const generated = await druck.generate({
           source: 'index.html',
           dest: ':page/index.html',
           locals: { items: posts },
           paginate: 3
         });
 
-        var expectedResult = [
+        const expectedResult = [
           {
             dest: 'index.html',
             locals: {
@@ -304,12 +304,12 @@ describe('kartoffeldruck.js descriptor', function() {
         druck.config.locals = { foo: 'BAR' };
 
         // when
-        var generated = await druck.generate({
+        const generated = await druck.generate({
           source: 'posts/01-first.md',
           dest: 'posts/01-first/index.html'
         });
 
-        var expectedResult = {
+        const expectedResult = {
           dest: 'posts/01-first/index.html',
           locals: {
             foo: 'BAR'
@@ -339,16 +339,16 @@ describe('kartoffeldruck.js descriptor', function() {
         it('should trigger on paginated page generation', async function() {
 
           // given
-          var posts = await druck.files('posts/*');
+          const posts = await druck.files('posts/*');
 
-          var capturedEvents = [];
+          const capturedEvents = [];
 
           druck.on('generated', function(event) {
             capturedEvents.push(event);
           });
 
           // when
-          var generated = await druck.generate({
+          const generated = await druck.generate({
             source: 'index.html',
             dest: ':page/index.html',
             locals: { items: posts },
@@ -364,14 +364,14 @@ describe('kartoffeldruck.js descriptor', function() {
         it('should trigger on wildcard page generation', async function() {
 
           // given
-          var capturedEvents = [];
+          const capturedEvents = [];
 
           druck.on('generated', function(event) {
             capturedEvents.push(event);
           });
 
           // when
-          var generated = await druck.generate({
+          const generated = await druck.generate({
             source: 'posts/*',
             dest: ':name/index.html',
             customProp: 'HOME'

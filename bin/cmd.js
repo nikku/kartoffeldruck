@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-var Kartoffeldruck = require('../');
+const Kartoffeldruck = require('../');
 
-var VError = require('verror');
+const VError = require('verror');
 
-var argv = process.argv;
+const argv = process.argv;
 
 if (argv[2] === '--help') {
   console.log('generate a static site using the ancient kartoffeldruck principles');

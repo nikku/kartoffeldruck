@@ -1,23 +1,23 @@
-var fs = require('fs');
+const fs = require('fs');
 
-var {
+const {
   forEach
 } = require('min-dash');
 
-var del = require('del');
+const del = require('del');
 
-var Kartoffeldruck = require('../../');
+const Kartoffeldruck = require('../../');
 
 
 function createValidator(cwd) {
 
   return function(file, contents) {
 
-    var realPath = cwd + '/dist/' + file;
+    const realPath = cwd + '/dist/' + file;
 
     expect(fs.existsSync(realPath)).to.be.true;
 
-    var realContents = fs.readFileSync(realPath, 'utf8');
+    const realContents = fs.readFileSync(realPath, 'utf8');
 
     forEach(contents, function(c) {
       expect(realContents).to.contain(c);
@@ -32,7 +32,7 @@ function clean(druck) {
 
 describe('generator', function() {
 
-  var druck, expectGenerated;
+  let druck, expectGenerated;
 
   describe('basic processing', function() {
 
@@ -72,7 +72,7 @@ describe('generator', function() {
     it('should aggregate / paginate items in single post', async function() {
 
       // given
-      var posts = await druck.files('posts/*');
+      const posts = await druck.files('posts/*');
 
       // when
       await druck.generate({
@@ -118,15 +118,15 @@ describe('generator', function() {
     it('should aggregate tagged', async function() {
 
       // given
-      var posts = await druck.files('posts/*');
+      const posts = await druck.files('posts/*');
 
       // extract tags
 
-      var tagged = {};
+      const tagged = {};
 
       posts.forEach(function(p) {
         (p.tags || []).forEach(function(tag) {
-          var t = tagged[tag] = (tagged[tag] || { tag: tag, items: [] });
+          const t = tagged[tag] = (tagged[tag] || { tag: tag, items: [] });
           t.items.push(p);
         });
       });
@@ -157,15 +157,15 @@ describe('generator', function() {
     it('should generate tag cloud', async function() {
 
       // given
-      var posts = await druck.files('posts/*');
+      const posts = await druck.files('posts/*');
 
       // extract tags
 
-      var tagged = {};
+      const tagged = {};
 
       posts.forEach(function(p) {
         (p.tags || []).forEach(function(tag) {
-          var t = tagged[tag] = (tagged[tag] || { tag: tag, items: [] });
+          const t = tagged[tag] = (tagged[tag] || { tag: tag, items: [] });
           t.items.push(p);
         });
       });
@@ -530,7 +530,7 @@ describe('generator', function() {
 
       it('should use custom processors only', async function() {
 
-        var called = false;
+        let called = false;
         druck.configure({
           contentProcessors: {
             'dummy': function(content, page) { called = true; return content; }

@@ -1,6 +1,6 @@
-var path = require('path');
+const path = require('path');
 
-var Kartoffeldruck = require('../../');
+const Kartoffeldruck = require('../../');
 
 
 describe('cli', function() {
@@ -10,7 +10,7 @@ describe('cli', function() {
     it('should return druck instance', async function() {
 
       // when
-      var druck = await Kartoffeldruck.run({
+      const druck = await Kartoffeldruck.run({
         cwd: path.resolve('test/fixtures/empty')
       });
 

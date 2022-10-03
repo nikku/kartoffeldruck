@@ -1,9 +1,9 @@
-var PATTERN = /^(.+)\s*<(.+)>$/;
+const PATTERN = /^(.+)\s*<(.+)>$/;
 
 module.exports = function author(str) {
-  var result;
+  let result;
 
-  var match = PATTERN.exec(str);
+  const match = PATTERN.exec(str);
   if (match) {
     result = '<a class="author" href="' + match[2] + '">' + match[1] + '</a>';
   } else {
