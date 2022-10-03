@@ -12,14 +12,15 @@
     "all": "run-s lint test",
     "prepare": "npm run build"
   },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/nikku/kartoffeldruck"
   },
   "files": [
     "bin",
-    "lib",
-    "index.js"
+    "lib"
   ],
   "keywords": [
     "static",
