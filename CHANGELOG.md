@@ -6,6 +6,18 @@ All notable changes to [kartoffeldruck](https://github.com/nikku/kartoffeldruck)
 
 ___Note:__ Yet to be released changes appear here._
 
+## 5.0.0
+
+* `FEAT`: generate typings
+* `FEAT`: make APIs fully async
+* `DEPS`: various dependency bumps / smaller installation size
+* `CHORE`: migrate to typescript
+
+### Breaking Change
+
+* Make APIs fully async
+* Remove default exports in favor of explicit explorts
+
 ## 4.0.0
 
 * `FEAT`: make runner async capable
