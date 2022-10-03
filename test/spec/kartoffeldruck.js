@@ -35,7 +35,7 @@ describe('kartoffeldruck.js descriptor', function() {
           {
             id: 'posts/01-first.md',
             name: 'posts/01-first',
-            body: '\n' +
+            body:
               'Hello blog!\n' +
               '\n' +
               '## This is a subheading\n' +
@@ -48,7 +48,7 @@ describe('kartoffeldruck.js descriptor', function() {
           {
             id: 'posts/02-second.md',
             name: 'posts/02-second',
-            body: '\nOther post.\n\n*YEA*!',
+            body: 'Other post.\n\n*YEA*!',
             title: 'second',
             tags: [ 'a' ],
             draft: true,
@@ -113,7 +113,7 @@ describe('kartoffeldruck.js descriptor', function() {
           {
             dest: 'posts/01-first/index.html',
             source: {
-              body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative("some-absolute-path") }}',
+              body: 'Hello blog!\n\n## This is a subheading\n\n{{ relative("some-absolute-path") }}',
               id: 'posts/01-first.md',
               layout: 'post',
               name: 'posts/01-first',
@@ -126,7 +126,7 @@ describe('kartoffeldruck.js descriptor', function() {
           {
             dest: 'posts/02-second/index.html',
             source: {
-              body: '\nOther post.\n\n*YEA*!',
+              body: 'Other post.\n\n*YEA*!',
               draft: true,
               id: 'posts/02-second.md',
               layout: 'post',
@@ -151,7 +151,7 @@ describe('kartoffeldruck.js descriptor', function() {
 
         const allItems = [
           {
-            body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative("some-absolute-path") }}',
+            body: 'Hello blog!\n\n## This is a subheading\n\n{{ relative("some-absolute-path") }}',
             id: 'posts/01-first.md',
             layout: 'post',
             name: 'posts/01-first',
@@ -159,7 +159,7 @@ describe('kartoffeldruck.js descriptor', function() {
             title: 'first'
           },
           {
-            body: '\nOther post.\n\n*YEA*!',
+            body: 'Other post.\n\n*YEA*!',
             draft: true,
             id: 'posts/02-second.md',
             layout: 'post',
@@ -193,7 +193,7 @@ describe('kartoffeldruck.js descriptor', function() {
               }
             },
             source: {
-              body: '\n\n{% block header %}\n  <h2>Welcome to my blog</h2>\n{% endblock %}',
+              body: '{% block header %}\n  <h2>Welcome to my blog</h2>\n{% endblock %}',
               id: 'index.html',
               layout: 'post_list',
               name: 'index',
@@ -216,7 +216,7 @@ describe('kartoffeldruck.js descriptor', function() {
               }
             },
             source: {
-              body: '\n\n{% block header %}\n  <h2>Welcome to my blog</h2>\n{% endblock %}',
+              body: '{% block header %}\n  <h2>Welcome to my blog</h2>\n{% endblock %}',
               id: 'index.html',
               layout: 'post_list',
               name: 'index',
@@ -238,7 +238,7 @@ describe('kartoffeldruck.js descriptor', function() {
 
         const allItems = [
           {
-            body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative("some-absolute-path") }}',
+            body: 'Hello blog!\n\n## This is a subheading\n\n{{ relative("some-absolute-path") }}',
             id: 'posts/01-first.md',
             layout: 'post',
             name: 'posts/01-first',
@@ -246,7 +246,7 @@ describe('kartoffeldruck.js descriptor', function() {
             title: 'first'
           },
           {
-            body: '\nOther post.\n\n*YEA*!',
+            body: 'Other post.\n\n*YEA*!',
             draft: true,
             id: 'posts/02-second.md',
             layout: 'post',
@@ -280,7 +280,7 @@ describe('kartoffeldruck.js descriptor', function() {
               }
             },
             source: {
-              body: '\n\n{% block header %}\n  <h2>Welcome to my blog</h2>\n{% endblock %}',
+              body: '{% block header %}\n  <h2>Welcome to my blog</h2>\n{% endblock %}',
               id: 'index.html',
               layout: 'post_list',
               name: 'index',
@@ -315,7 +315,7 @@ describe('kartoffeldruck.js descriptor', function() {
             foo: 'BAR'
           },
           source: {
-            body: '\nHello blog!\n\n## This is a subheading\n\n{{ relative("some-absolute-path") }}',
+            body: 'Hello blog!\n\n## This is a subheading\n\n{{ relative("some-absolute-path") }}',
             id: 'posts/01-first.md',
             layout: 'post',
             name: 'posts/01-first',
