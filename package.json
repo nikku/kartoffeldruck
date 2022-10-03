@@ -38,7 +38,7 @@
     "front-matter": "^0.2.3",
     "glob": "^7.1.6",
     "marked": "^4.1.1",
-    "min-dash": "^3.5.2",
+    "min-dash": "^4.0.0",
     "minimatch": "^3.0.0",
     "mkdirp": "^1.0.3",
     "verror": "^1.10.0"
