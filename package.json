@@ -37,7 +37,7 @@
     "colors": "^1.4.0",
     "front-matter": "^0.2.3",
     "glob": "^7.1.6",
-    "marked": "^0.8.0",
+    "marked": "^4.1.1",
     "min-dash": "^3.5.2",
     "minimatch": "^3.0.0",
     "mkdirp": "^1.0.3",

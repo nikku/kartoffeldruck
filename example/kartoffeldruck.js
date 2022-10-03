@@ -1,4 +1,4 @@
-var marked = require('marked');
+var { marked } = require('marked');
 
 var {
   forEach
