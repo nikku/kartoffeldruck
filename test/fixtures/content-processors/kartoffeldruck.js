@@ -1,6 +1,6 @@
-module.exports = function(druck) {
+module.exports = async function(druck) {
 
-  druck.generate({
+  await druck.generate({
     source: '*',
     dest: ':name.html'
   });

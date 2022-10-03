@@ -1,19 +1,19 @@
-module.exports = function(druck) {
+module.exports = async function(druck) {
 
   // grep for files
 
-  var posts = druck.files('posts/*');
+  var posts = await druck.files('posts/*');
 
   // each post on its own page
 
-  druck.generate({
+  await druck.generate({
     source: posts,
     dest: ':name/index.html'
   });
 
   // published posts list
 
-  druck.generate({
+  await druck.generate({
     source: 'index.html',
     dest: ':page/index.html',
     locals: { items: posts },

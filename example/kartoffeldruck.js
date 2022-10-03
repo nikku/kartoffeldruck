@@ -1,10 +1,6 @@
-var { marked } = require('marked');
+const { marked } = require('marked');
 
-var {
-  forEach
-} = require('min-dash');
-
-module.exports = function(druck) {
+module.exports = async function(druck) {
 
   druck.init({
     source: 'pages',
@@ -14,7 +10,7 @@ module.exports = function(druck) {
 
   // install custom helpers
 
-  var nunjucks = druck.getNunjucks();
+  const nunjucks = druck.getNunjucks();
 
   nunjucks.addFilter('date', require('nunjucks-date'));
 
@@ -24,27 +20,27 @@ module.exports = function(druck) {
 
   // grep for files
 
-  var posts = druck.files('posts/*');
+  const posts = await druck.files('posts/*');
 
   // filter published / unpublished posts
 
-  var published = posts.filter(function(p) { return !p.draft; }),
-      unpublished = posts.filter(function(p) { return p.draft; });
+  const published = posts.filter(function(p) { return !p.draft; });
+  const unpublished = posts.filter(function(p) { return p.draft; });
 
   // extract tags
 
   // guess what, you can use actuall javascript to do it!
   // use the same approach to create categories, tocs, ... in your application
-  var tagged = {};
+  const tagged = {};
 
   posts.forEach(function(p) {
     (p.tags || []).forEach(function(tag) {
-      var t = tagged[tag] = (tagged[tag] || { tag: tag, items: [] });
+      const t = tagged[tag] = (tagged[tag] || { tag: tag, items: [] });
       t.items.push(p);
     });
   });
 
-  // if you would like to make the tagged variable available
+  // if you would like to make the tagged constiable available
   // across the whole site
 
   druck.configure({
@@ -66,14 +62,14 @@ module.exports = function(druck) {
 
   // each post on its own page
 
-  druck.generate({
+  await druck.generate({
     source: posts,
     dest: ':name/index.html'
   });
 
   // published posts list
 
-  druck.generate({
+  await druck.generate({
     source: 'index.html',
     dest: ':page/index.html',
     locals: { items: published },
@@ -82,7 +78,7 @@ module.exports = function(druck) {
 
   // drafts pages
 
-  druck.generate({
+  await druck.generate({
     source: '_drafts.html',
     dest: '_drafts/:page/index.html',
     locals: { items: unpublished },
@@ -91,18 +87,18 @@ module.exports = function(druck) {
 
   // each tag page
 
-  forEach(tagged, function(t) {
-    druck.generate({
+  for (const [ _, t ] of Object.entries(tagged)) {
+    await druck.generate({
       source: '_tagged.html',
       dest: '_tagged/:tag/:page/index.html',
       locals: t,
       paginate: 5
     });
-  });
+  }
 
   // a tags overview page
 
-  druck.generate({
+  await druck.generate({
     source: '_tags.html',
     dest: '_tagged/index.html',
     locals: { tags: tagged }
@@ -111,9 +107,9 @@ module.exports = function(druck) {
 
   // custom helpers in a nutshell
 
-  var dateString = '2010-10-10';
+  const dateString = '2010-10-10';
 
-  druck.generate({
+  await druck.generate({
     source: '_helpers.html',
     dest: '_helpers/index.html',
     locals: {

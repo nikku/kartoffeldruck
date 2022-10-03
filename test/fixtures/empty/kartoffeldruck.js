@@ -1,3 +1,4 @@
-module.exports = function(druck) {
+module.exports = async function(druck) {
+
   // intentionally empty
 };

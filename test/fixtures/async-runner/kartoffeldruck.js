@@ -1,15 +1,7 @@
-/* global Promise */
+module.exports = async function(druck) {
 
-module.exports = function(druck) {
-
-  druck.generate({
+  await druck.generate({
     source: 'test.html',
     dest: 'test.html'
-  });
-
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve();
-    }, 500);
   });
 };

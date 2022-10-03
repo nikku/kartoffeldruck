@@ -1,8 +1,8 @@
-module.exports = function(druck) {
+module.exports = async function(druck) {
 
-  var include = druck.files.get('include.html');
+  var include = await druck.files.get('include.html');
 
-  druck.generate({
+  await druck.generate({
     source: 'outer.html',
     dest: ':name.html',
     locals: {

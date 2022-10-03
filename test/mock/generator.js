@@ -1,6 +1,6 @@
 function Generator() {
 
-  this.generate = function(options) {
+  this.generate = async function(options) {
     return 'rendered';
   };
 }

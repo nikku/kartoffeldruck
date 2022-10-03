@@ -47,10 +47,10 @@ describe('generator', function() {
     });
 
 
-    it('should generate multiple posts', function() {
+    it('should generate multiple posts', async function() {
 
       // when
-      druck.generate({
+      await druck.generate({
         source: 'posts/*.md',
         dest: ':name/index.html'
       });
@@ -69,13 +69,13 @@ describe('generator', function() {
     });
 
 
-    it('should aggregate / paginate items in single post', function() {
+    it('should aggregate / paginate items in single post', async function() {
 
       // given
-      var posts = druck.files('posts/*');
+      var posts = await druck.files('posts/*');
 
       // when
-      druck.generate({
+      await druck.generate({
         source: 'index.html',
         dest: ':page/index.html',
         locals: { items: posts },
@@ -97,10 +97,10 @@ describe('generator', function() {
     });
 
 
-    it('should aggregate / paginate items in single post / empty collection', function() {
+    it('should aggregate / paginate items in single post / empty collection', async function() {
 
       // when
-      druck.generate({
+      await druck.generate({
         source: 'index.html',
         dest: ':page/index.html',
         locals: { items: [] },
@@ -115,10 +115,10 @@ describe('generator', function() {
     });
 
 
-    it('should aggregate tagged', function() {
+    it('should aggregate tagged', async function() {
 
       // given
-      var posts = druck.files('posts/*');
+      var posts = await druck.files('posts/*');
 
       // extract tags
 
@@ -132,14 +132,14 @@ describe('generator', function() {
       });
 
       // when
-      forEach(tagged, function(t) {
-        druck.generate({
+      for (const [ _, t ] of Object.entries(tagged)) {
+        await druck.generate({
           source: '_tagged.html',
           dest: '_tagged/:tag/:page/index.html',
           locals: t,
           paginate: 1
         });
-      });
+      }
 
       // then
       expectGenerated('_tagged/a/index.html', [
@@ -154,10 +154,10 @@ describe('generator', function() {
     });
 
 
-    it('should generate tag cloud', function() {
+    it('should generate tag cloud', async function() {
 
       // given
-      var posts = druck.files('posts/*');
+      var posts = await druck.files('posts/*');
 
       // extract tags
 
@@ -171,7 +171,7 @@ describe('generator', function() {
       });
 
       // when
-      druck.generate({
+      await druck.generate({
         source: '_tags.html',
         dest: '_tagged/index.html',
         locals: { tags: tagged }
@@ -400,7 +400,7 @@ describe('generator', function() {
 
     describe('content processors', function() {
 
-      it('should apply custom processors', function() {
+      it('should apply custom processors', async function() {
 
         druck.configure({
           contentProcessors: {
@@ -409,7 +409,7 @@ describe('generator', function() {
           }
         });
 
-        druck.generate({
+        await druck.generate({
           source: '*',
           dest: ':name.html'
         });
@@ -429,7 +429,7 @@ describe('generator', function() {
       });
 
 
-      it('should apply contentProcessors=fn', function() {
+      it('should apply contentProcessors=fn', async function() {
 
         druck.configure({
           contentProcessors: function(page) {
@@ -450,7 +450,7 @@ describe('generator', function() {
           }
         });
 
-        druck.generate({
+        await druck.generate({
           source: '*',
           dest: ':name.html'
         });
@@ -466,7 +466,7 @@ describe('generator', function() {
       });
 
 
-      it('should apply contentProcessors=fn, returning null', function() {
+      it('should apply contentProcessors=fn, returning null', async function() {
 
         druck.configure({
           contentProcessors: function(page) {
@@ -474,7 +474,7 @@ describe('generator', function() {
           }
         });
 
-        druck.generate({
+        await druck.generate({
           source: '*',
           dest: ':name.html'
         });
@@ -486,7 +486,7 @@ describe('generator', function() {
       });
 
 
-      it('should apply contentProcessors=object', function() {
+      it('should apply contentProcessors=object', async function() {
 
         druck.configure({
           contentProcessors: {
@@ -494,7 +494,7 @@ describe('generator', function() {
           }
         });
 
-        druck.generate({
+        await druck.generate({
           source: '*',
           dest: ':name.html'
         });
@@ -510,13 +510,13 @@ describe('generator', function() {
       });
 
 
-      it('should disable on contentProcessors=false', function() {
+      it('should disable on contentProcessors=false', async function() {
 
         druck.configure({
           contentProcessors: false
         });
 
-        druck.generate({
+        await druck.generate({
           source: '*',
           dest: ':name.html'
         });
@@ -528,7 +528,7 @@ describe('generator', function() {
       });
 
 
-      it('should use custom processors only', function() {
+      it('should use custom processors only', async function() {
 
         var called = false;
         druck.configure({
@@ -537,7 +537,7 @@ describe('generator', function() {
           }
         });
 
-        druck.generate({
+        await druck.generate({
           source: '*',
           dest: ':name.html'
         });
