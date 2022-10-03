@@ -37,6 +37,9 @@ We intentionally _do not_ provide any css processing pipelines or asset copy uti
 Place a `kartoffeldruck.js` file in your current project directory:
 
 ```javascript
+/**
+ * @param { import('kartoffeldruck').Kartoffeldruck } druck
+ */
 module.exports = async function(druck) {
 
   // initialize the kartoffeldruck instance
