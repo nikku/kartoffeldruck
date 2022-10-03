@@ -9,7 +9,7 @@
     "test": "mocha -r test/expect -c --recursive test/spec",
     "build": "tsc --pretty --outDir lib",
     "lint": "eslint . --ext js,ts",
-    "all": "run-s lint test",
+    "all": "run-s lint build test",
     "prepare": "npm run build"
   },
   "main": "lib/index.js",
