@@ -98,7 +98,11 @@ Simply add the following task to your `Gruntfile.js`:
 grunt.registerTask('kartoffeldruck', function() {
   var done = this.async();
 
-  require('kartoffeldruck').run({
+  var {
+    Kartoffeldruck
+  } = require('kartoffeldruck');
+
+  Kartoffeldruck.run({
     logger: {
       debug: grunt.log.ok,
       info: grunt.log.ok
