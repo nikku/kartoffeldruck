@@ -26,7 +26,7 @@ function createValidator(cwd) {
 }
 
 function clean(druck) {
-  del.sync(druck.config.dest);
+  return del(druck.config.dest);
 }
 
 
@@ -43,7 +43,7 @@ describe('generator', function() {
     });
 
     afterEach(function() {
-      clean(druck);
+      return clean(druck);
     });
 
 
