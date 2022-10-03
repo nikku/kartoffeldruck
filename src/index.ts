@@ -1,0 +1,3 @@
+export {
+  Kartoffeldruck
+} from './kartoffeldruck';

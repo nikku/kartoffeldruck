@@ -1,1 +1,1 @@
-module.exports = require('./lib/kartoffeldruck');
+module.exports = require('./lib').Kartoffeldruck;

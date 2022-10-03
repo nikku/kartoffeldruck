@@ -1,4 +1,4 @@
-const {
+import {
   isArray,
   isString,
   isFunction,
@@ -6,31 +6,32 @@ const {
   merge,
   filter,
   forEach
-} = require('min-dash');
+} from 'min-dash';
 
-const AggregateError = require('aggregate-error');
+import AggregateError from 'aggregate-error';
 
-const mkdirp = require('mkdirp');
+import mkdirp from 'mkdirp';
 
-const { EventEmitter } = require('events');
+import { EventEmitter } from 'node:events';
 
-const Nunjucks = require('@nikku/nunjucks');
+import Nunjucks from '@nikku/nunjucks';
 
-const { marked } = require('marked');
-const picomatch = require('picomatch');
+import { marked } from 'marked';
+import picomatch from 'picomatch';
 
-const colors = require('colors/safe');
+import colors from 'colors/safe';
 
-const NopLogger = require('./nop-logger');
+import { NopLogger } from './logger';
 
-const Page = require('./page');
+import Page from './page';
 
-const frontMatter = require('front-matter'),
-      fs = require('fs'),
-      path = require('path');
+import frontMatter from 'front-matter';
 
-const Files = require('./files'),
-      Generator = require('./generator');
+import fs from 'node:fs';
+import path from 'node:path';
+
+import { createFiles } from './files';
+import { createGenerator } from './generator';
 
 const runnerFile = 'kartoffeldruck.js';
 
@@ -42,15 +43,18 @@ const defaultLocations = {
 };
 
 
-function Kartoffeldruck(config) {
+/**
+ * @class
+ */
+export function Kartoffeldruck(config: Record<string, any>) {
   EventEmitter.call(this);
 
   config = config || {};
 
   this.logger = config.logger || new NopLogger();
 
-  this.files = config.files || new Files(this);
-  this.generator = config.generator || new Generator(this);
+  this.files = config.files || createFiles(this);
+  this.generator = config.generator || createGenerator(this);
 
   this.init(config);
 }
@@ -137,7 +141,20 @@ Kartoffeldruck.prototype.getContentProcessors = function(page) {
   throw new Error('invalid contentProcessors config; expected object|fn|false');
 };
 
-Kartoffeldruck.prototype.init =
+/**
+ * Initialize the Kartoffeldruck instance with the given configuration.
+ *
+ * @param { Record<string, any> } config
+ */
+Kartoffeldruck.prototype.init = function(config) {
+  this.configure(config);
+};
+
+/**
+ * Re-configure the Kartoffeldruck instance with the given configuration.
+ *
+ * @param { Record<string, any> } config
+ */
 Kartoffeldruck.prototype.configure = function(config) {
 
   const currentConfig = this.config || {};
@@ -277,13 +294,14 @@ Kartoffeldruck.prototype.expandUri = function(pattern, source, locals, page) {
     throw new Error('source must be an object');
   }
 
-  const replacements = assign({}, source, locals, page !== undefined ? { page: page + 1 } : {});
-
-  if (pattern.expanded) {
+  // early return on already expanded
+  if (!/:([\w]+)(\/?)/.test(pattern)) {
     return pattern;
   }
 
-  const expanded = pattern.replace(/:([\w]+)(\/?)/g, function(match, key, slash) {
+  const replacements = assign({}, source, locals, page !== undefined ? { page: page + 1 } : {});
+
+  return pattern.replace(/:([\w]+)(\/?)/g, function(match, key, slash) {
 
     const replacement = replacements[key];
 
@@ -293,10 +311,6 @@ Kartoffeldruck.prototype.expandUri = function(pattern, source, locals, page) {
       return replacement + slash;
     }
   });
-
-  expanded.expanded = true;
-
-  return expanded;
 };
 
 /**
@@ -387,8 +401,6 @@ Kartoffeldruck.run = async function(options) {
 
   return druck;
 };
-
-module.exports = Kartoffeldruck;
 
 
 // helpers /////////////

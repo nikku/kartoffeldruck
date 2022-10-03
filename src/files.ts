@@ -1,8 +1,9 @@
-const glob = require('tiny-glob');
+import glob from 'tiny-glob';
 
-module.exports = function Files(druck) {
 
-  const cache = this._cache = {};
+export function createFiles(druck) {
+
+  const cache = {};
 
   async function get(id) {
     let page = cache[id];
@@ -21,6 +22,7 @@ module.exports = function Files(druck) {
   }
 
   all.get = get;
+  all.cache = cache;
 
   return all;
-};
+}

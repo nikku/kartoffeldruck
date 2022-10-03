@@ -1,13 +1,16 @@
-const {
+import {
   assign,
   isString,
   reduce
-} = require('min-dash');
+} from 'min-dash';
 
 const CONTENT_MARKER = '<~~content~marker~~>';
 
+export function createGenerator(druck) {
+  return new Generator(druck);
+}
 
-function Generator(druck) {
+export function Generator(druck) {
 
   function renderNunjucks(template, locals, path) {
     return druck.getNunjucks().renderString(template, locals, { path: path });
@@ -142,8 +145,6 @@ function Generator(druck) {
    */
   this.generate = generate;
 }
-
-module.exports = Generator;
 
 
 // utilities //////////////////////////////////////////
