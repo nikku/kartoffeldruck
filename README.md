@@ -54,7 +54,7 @@ module.exports = async function(druck) {
   });
 
 
-  druck.generate({
+  await druck.generate({
     source: '*.md',
     dest: ':name/index.html'
   });
