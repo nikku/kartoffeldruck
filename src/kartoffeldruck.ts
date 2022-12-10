@@ -354,7 +354,7 @@ export class Kartoffeldruck extends EventEmitter {
       body
     } = frontMatter(data);
 
-    return new Page(id, id.replace(/\.[^.]+$/, ''), attributes, body);
+    return new Page(id, attributes, body);
   }
 
   /**

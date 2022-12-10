@@ -29,12 +29,13 @@ describe('kartoffeldruck.js descriptor', function() {
         const entries = await druck.files('posts/*.md');
 
         // then
-        expect(entries.length).to.eql(2);
+        expect(entries).to.have.length(2);
 
         expect(entries).to.eql([
           {
             id: 'posts/01-first.md',
             name: 'posts/01-first',
+            context: 'posts/01-first',
             body:
               'Hello blog!\n' +
               '\n' +
@@ -48,6 +49,7 @@ describe('kartoffeldruck.js descriptor', function() {
           {
             id: 'posts/02-second.md',
             name: 'posts/02-second',
+            context: 'posts/02-second',
             body: 'Other post.\n\n*YEA*!',
             title: 'second',
             tags: [ 'a' ],
@@ -64,7 +66,7 @@ describe('kartoffeldruck.js descriptor', function() {
         const entries = await druck.files('non-existing.html');
 
         // then
-        expect(entries.length).to.eql(0);
+        expect(entries).to.have.length(0);
       });
 
 
@@ -80,6 +82,7 @@ describe('kartoffeldruck.js descriptor', function() {
           {
             id: 'index.html',
             name: 'index',
+            context: '',
             body: '{% block header %}\n  <h2>Welcome to my blog</h2>\n{% endblock %}',
             title: 'My blog',
             layout: 'post_list'
@@ -87,6 +90,7 @@ describe('kartoffeldruck.js descriptor', function() {
           {
             id: 'sub/index.md',
             name: 'sub/index',
+            context: 'sub',
             body: 'SUB - INDEX'
           }
         ]);
@@ -156,6 +160,7 @@ describe('kartoffeldruck.js descriptor', function() {
               id: 'posts/01-first.md',
               layout: 'post',
               name: 'posts/01-first',
+              context: 'posts/01-first',
               tags: [ 'a', 'b', 'c' ],
               title: 'first'
             },
@@ -170,6 +175,7 @@ describe('kartoffeldruck.js descriptor', function() {
               id: 'posts/02-second.md',
               layout: 'post',
               name: 'posts/02-second',
+              context: 'posts/02-second',
               tags: [ 'a' ],
               title: 'second'
             },
@@ -194,6 +200,7 @@ describe('kartoffeldruck.js descriptor', function() {
             id: 'posts/01-first.md',
             layout: 'post',
             name: 'posts/01-first',
+            context: 'posts/01-first',
             tags: [ 'a', 'b', 'c' ],
             title: 'first'
           },
@@ -203,6 +210,7 @@ describe('kartoffeldruck.js descriptor', function() {
             id: 'posts/02-second.md',
             layout: 'post',
             name: 'posts/02-second',
+            context: 'posts/02-second',
             tags: [ 'a' ],
             title: 'second'
           }
@@ -236,6 +244,7 @@ describe('kartoffeldruck.js descriptor', function() {
               id: 'index.html',
               layout: 'post_list',
               name: 'index',
+              context: '',
               title: 'My blog'
             },
             rendered: 'rendered'
@@ -259,6 +268,7 @@ describe('kartoffeldruck.js descriptor', function() {
               id: 'index.html',
               layout: 'post_list',
               name: 'index',
+              context: '',
               title: 'My blog'
             },
             rendered: 'rendered'
@@ -281,6 +291,7 @@ describe('kartoffeldruck.js descriptor', function() {
             id: 'posts/01-first.md',
             layout: 'post',
             name: 'posts/01-first',
+            context: 'posts/01-first',
             tags: [ 'a', 'b', 'c' ],
             title: 'first'
           },
@@ -290,6 +301,7 @@ describe('kartoffeldruck.js descriptor', function() {
             id: 'posts/02-second.md',
             layout: 'post',
             name: 'posts/02-second',
+            context: 'posts/02-second',
             tags: [ 'a' ],
             title: 'second'
           }
@@ -323,6 +335,7 @@ describe('kartoffeldruck.js descriptor', function() {
               id: 'index.html',
               layout: 'post_list',
               name: 'index',
+              context: '',
               title: 'My blog'
             },
             rendered: 'rendered'
@@ -332,6 +345,7 @@ describe('kartoffeldruck.js descriptor', function() {
         // then
         expect(generated).to.eql(expectedResult);
       });
+
     });
 
 
@@ -358,6 +372,7 @@ describe('kartoffeldruck.js descriptor', function() {
             id: 'posts/01-first.md',
             layout: 'post',
             name: 'posts/01-first',
+            context: 'posts/01-first',
             tags: [ 'a', 'b', 'c' ],
             title: 'first'
           },

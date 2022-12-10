@@ -7,18 +7,19 @@ export default class Page {
 
   id: string;
   name: string;
+  context: string;
   body: string;
   [name: string]: any;
 
   constructor(
       id: string,
-      name: string,
       attributes: Record<string, any>,
       body: string
   ) {
 
     this.id = id;
-    this.name = name;
+    this.name = id.replace(/\.[^.]+$/, '');
+    this.context = id.replace(/((^|\/)index)?\.[^.]+$/, '');
     this.body = body;
 
     assign(this, attributes);

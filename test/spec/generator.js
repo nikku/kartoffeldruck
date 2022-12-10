@@ -15,7 +15,13 @@ function createValidator(cwd) {
 
     const realPath = cwd + '/dist/' + file;
 
-    expect(fs.existsSync(realPath)).to.be.true;
+    if (contents === false) {
+      expect(fs.existsSync(realPath), `path ${realPath} NOT to exist`).to.be.false;
+
+      return;
+    }
+
+    expect(fs.existsSync(realPath), `path ${realPath} to exist`).to.be.true;
 
     const realContents = fs.readFileSync(realPath, 'utf8');
 
@@ -183,6 +189,58 @@ describe('generator', function() {
         '<span class="tag" data-length="2">a</span>'
       ]);
 
+    });
+
+  });
+
+
+  describe('index pages', function() {
+
+    beforeEach(function() {
+      druck = new Kartoffeldruck({ cwd: 'test/fixtures/index-pages' });
+
+      expectGenerated = createValidator('test/fixtures/index-pages');
+    });
+
+    afterEach(function() {
+      return clean(druck);
+    });
+
+
+    it('should generate', async function() {
+
+      // when
+      await druck.generate({
+        source: '**/*.{html,md}',
+        dest: ':context/index.html'
+      });
+
+      // then
+      expectGenerated('index.html', [
+        'INDEX'
+      ]);
+
+      expectGenerated('sub/index.html', [
+        'SUB - INDEX'
+      ]);
+
+      expectGenerated('sub/nested/index.html', [
+        'SUB - NESTED'
+      ]);
+    });
+
+
+    it('should exclude index page', async function() {
+
+      // when
+      await druck.generate({
+        source: '**/!(index).md',
+        dest: ':context/index.html'
+      });
+
+      // then
+      expectGenerated('sub/index.html', false);
+      expectGenerated('index.html', false);
     });
 
   });
