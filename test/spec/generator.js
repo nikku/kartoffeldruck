@@ -217,11 +217,13 @@ describe('generator', function() {
 
       // then
       expectGenerated('index.html', [
-        'INDEX'
+        'INDEX',
+        '<a href="sub/nested">NESTED</a>'
       ]);
 
       expectGenerated('sub/index.html', [
-        'SUB - INDEX'
+        'SUB - INDEX',
+        '<a href="../sub/nested">NESTED</a>'
       ]);
 
       expectGenerated('sub/nested/index.html', [
@@ -234,7 +236,7 @@ describe('generator', function() {
 
       // when
       await druck.generate({
-        source: '**/!(index).md',
+        source: '**/!(index).{html,md}',
         dest: ':context/index.html'
       });
 

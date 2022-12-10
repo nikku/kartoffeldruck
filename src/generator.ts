@@ -125,7 +125,7 @@ export class Generator {
 
       const dest = options.dest;
 
-      const pathSeparator = dest.split('/').map(function() { return ''; }).join('../');
+      const pathSeparator = dest.split('/').filter(part => part).map(function() { return ''; }).join('../');
 
       const self = {
 
