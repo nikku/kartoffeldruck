@@ -68,6 +68,45 @@ describe('kartoffeldruck.js descriptor', function() {
       });
 
 
+      it('should glob extended (options)', async function() {
+
+        // when
+        const entries = await druck.files('**/index.{html,md}');
+
+        // then
+        expect(entries).to.have.length(2);
+
+        expect(entries).to.eql([
+          {
+            id: 'index.html',
+            name: 'index',
+            body: '{% block header %}\n  <h2>Welcome to my blog</h2>\n{% endblock %}',
+            title: 'My blog',
+            layout: 'post_list'
+          },
+          {
+            id: 'sub/index.md',
+            name: 'sub/index',
+            body: 'SUB - INDEX'
+          }
+        ]);
+      });
+
+
+      it('should glob extended (negation)', async function() {
+
+        // when
+        const entries = await druck.files('!(index).html');
+
+        // then
+        expect(entries).to.have.length(4);
+
+        const indexEntry = entries.find(e => e.id === 'index.html');
+
+        expect(indexEntry).not.to.exist;
+      });
+
+
       describe('#get', function() {
 
         it('should not fail on non-existing', async function() {

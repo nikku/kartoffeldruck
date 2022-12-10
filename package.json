@@ -39,6 +39,7 @@
     "@nikku/nunjucks": "^4.1.0",
     "aggregate-error": "^3.1.0",
     "front-matter": "^4.0.2",
+    "globalyzer": "^0.1.4",
     "kleur": "^4.1.5",
     "marked": "^4.1.1",
     "min-dash": "^4.0.0",

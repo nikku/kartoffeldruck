@@ -8,6 +8,8 @@ import {
   forEach
 } from 'min-dash';
 
+import globalizer from 'globalyzer';
+
 import mkdirp from 'mkdirp';
 
 import { EventEmitter } from 'node:events';
@@ -210,7 +212,7 @@ export class Kartoffeldruck extends EventEmitter {
     if (isString(source)) {
 
       // a globbing pattern
-      if (source.match(/\*/)) {
+      if (isGlob(source)) {
         source = await this.files(source);
       } else {
         source = await this.files.get(source);
@@ -428,4 +430,8 @@ export class Kartoffeldruck extends EventEmitter {
 
 function range(size) {
   return [ ...Array(size).keys() ];
+}
+
+function isGlob(str) {
+  return globalizer(str).isGlob;
 }
