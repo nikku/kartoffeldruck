@@ -59,7 +59,9 @@ export class Generator {
       throw new Error('must not use content marker (' + CONTENT_MARKER + ') in template or page');
     }
 
-    function render(page, locals, layout) {
+    function render(page, locals, shouldLayout) {
+
+      let rendered = page.body;
 
       // (0) ensure we replace template parameters in locals
       locals = reduce(locals, function(l, val, key) {
@@ -72,7 +74,8 @@ export class Generator {
         return l;
       }, {});
 
-      let rendered = page.body;
+      const layout = shouldLayout && (page.layout || locals.layout);
+
       const contentProcessors = druck.getContentProcessors(page);
 
       // (1.0) mark content-area if content processing is requested
@@ -88,9 +91,9 @@ export class Generator {
         '{% endblock %}\n';
 
       // (1.2) extend layout if necessary
-      if (layout && page.layout) {
+      if (layout) {
         rendered =
-          '{% extends "' + withExtension(page.layout, 'html') + '" %}\n' +
+          '{% extends "' + withExtension(layout, 'html') + '" %}\n' +
           rendered;
       }
 

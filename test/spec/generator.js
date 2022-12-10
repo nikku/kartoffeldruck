@@ -248,6 +248,69 @@ describe('generator', function() {
   });
 
 
+  describe('layout', function() {
+
+    beforeEach(function() {
+      druck = new Kartoffeldruck({ cwd: 'test/fixtures/layout' });
+
+      expectGenerated = createValidator('test/fixtures/layout');
+    });
+
+    afterEach(function() {
+      return clean(druck);
+    });
+
+
+    it('should generate (no default layout)', async function() {
+
+      // when
+      await druck.generate({
+        source: '*.md',
+        dest: ':name.html'
+      });
+
+      // then
+      expectGenerated('layout.html', [
+        'OTHER',
+        'LAYOUT'
+      ]);
+
+      expectGenerated('no-layout.html', [
+        'NO_LAYOUT'
+      ]);
+    });
+
+
+    it('should generate (default layout)', async function() {
+
+      // given
+      druck.init({
+        locals: {
+          layout: 'default'
+        }
+      });
+
+      // when
+      await druck.generate({
+        source: '*.md',
+        dest: ':name.html'
+      });
+
+      // then
+      expectGenerated('layout.html', [
+        'OTHER',
+        'LAYOUT'
+      ]);
+
+      expectGenerated('no-layout.html', [
+        'DEFAULT',
+        'NO_LAYOUT'
+      ]);
+    });
+
+  });
+
+
   describe('helpers', function() {
 
     before(async function() {
