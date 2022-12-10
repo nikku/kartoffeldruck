@@ -6,6 +6,11 @@ All notable changes to [kartoffeldruck](https://github.com/nikku/kartoffeldruck)
 
 ___Note:__ Yet to be released changes appear here._
 
+## 5.1.0
+
+* `FIX`: correctly retrieve `Kartoffeldruck` util
+* `DEPS`: update to `@nikku/nunjucks@4.1.0`
+
 ## 5.0.0
 
 * `FEAT`: generate typings
