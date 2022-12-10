@@ -6,6 +6,10 @@ All notable changes to [kartoffeldruck](https://github.com/nikku/kartoffeldruck)
 
 ___Note:__ Yet to be released changes appear here._
 
+## 5.2.1
+
+* `FIX`: correct relative path with empty fragments
+
 ## 5.2.0
 
 * `FIX`: correct detection of glob patterns
