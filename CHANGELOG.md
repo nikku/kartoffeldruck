@@ -6,6 +6,11 @@ All notable changes to [kartoffeldruck](https://github.com/nikku/kartoffeldruck)
 
 ___Note:__ Yet to be released changes appear here._
 
+## 5.2.0
+
+* `FIX`: correct detection of glob patterns
+* `FEAT`: provide `:context` with page
+
 ## 5.1.0
 
 * `FIX`: correctly retrieve `Kartoffeldruck` util
