@@ -1,6 +1,6 @@
 {
   "name": "kartoffeldruck",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "description": "Simple opinionated static site / blog generator",
   "bin": {
     "kartoffeldruck": "bin/cmd.js"
