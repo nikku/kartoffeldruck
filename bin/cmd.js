@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const Kartoffeldruck = require('../');
+const { Kartoffeldruck } = require('..');
 
 const argv = process.argv;
 
