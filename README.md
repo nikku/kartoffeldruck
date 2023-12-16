@@ -94,7 +94,7 @@ You would like to spend hours composing a site generation solution yourself? Try
 
 Simply add the following task to your `Gruntfile.js`:
 
-```
+```javascript
 grunt.registerTask('kartoffeldruck', function() {
   var done = this.async();
 
